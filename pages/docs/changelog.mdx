@@ -1,0 +1,103 @@
+# Changelog
+
+## 0.1.30
+
+- **Components Version**: 0.1.30
+- **Hooks Version**: 0.1.30
+
+<div className="changelog-heading">Bug Fixes 🚀</div>
+
+1. Added support for Product Attributes and fields. Users can now pass an array of specific field names required for the product.
+2. Resolved an issue where the onEvent was not firing. This has been fixed in the latest version.
+
+## 0.1.26
+
+- **Components Version**: 0.1.26
+- **Hooks Version**: 0.1.26
+
+<div className="changelog-heading">Bug Fixes 🚀</div>
+
+1. **Handled the way data is being handled when there is an API_ERROR:** When an error of type API_ERROR occurred, the state was being flushed and reset. Now, instead of resetting the state, we are setting a value in the state with the key: `error`. This value would have all the details regarding the error like name, message, stack etc. Users can make use of this value in the onEvent function to do their respective operations.
+   For eg: In certain cases like Infinite Scroll Pagination, if there was an `API_ERROR` on scrolling, any products present on the screen would be removed and the NoResultComponent would be rendered. Ideally, the products must not go away.
+
+## 0.1.25
+
+- **Components Version**: 0.1.25
+- **Hooks Version**: 0.1.25
+
+<div className="changelog-heading">Bug Fixes 🚀</div>
+
+1. **URL Encoding Issue Resolved:** Fixed a bug where spaces in encoded URLs were being converted to "+" symbols by the browser, causing the SDK to misinterpret the URL state during page reloads. This issue led to page-breaking errors. The SDK now properly handles these "+" symbols by removing them and correctly reconstructing the state from the URL.
+
+## 0.1.24
+
+- **Components Version**: 0.1.24
+- **Hooks Version**: 0.1.24
+
+<div className="changelog-heading">Bug Fixes 🚀</div>
+
+1. **Searchbox Clear Button Behavior:** Resolved an issue with the clear button in the searchbox. Previously, when a user entered a new query without submitting it and clicked the clear button, the searchbox failed to clear properly. The clear button has now been updated to reliably clear the searchbox without triggering a new API call and rather ust focus the searchbox.
+2. **Summary Display on CATEGORY Pages:** Fixed an issue where the summary incorrectly displayed the query on CATEGORY pages instead of the category path. The summary now properly reflects the category path for CATEGORY pages, while continuing to display the query for SEARCH pages.
+3. **Validation for page_type on CATEGORY Pages:** Updated the page_type for CATEGORY pages to accept only boolean values. If the value is not boolean, the page_type will no longer be included in the API request, ensuring better validation and consistency.
+4. **Removed style on product card wrapper**: Removed the style on the wrapper of product card as this was causing functionality like changing page in URL to fail.
+5. **Fixed infinite scroll pagination bug:** Fixed the issue where the products container was not scrolling to the correct product. This was due to the style present on the product wrapper.
+6. **Fixed bug in multilevel facet:** Fixed the issue where the facet values were not being shown if viewMore was false. When the value of viewMore was false, the values in MultilevelFacet were not being displayed.
+
+## 0.1.22
+
+- **Components Version**: 0.1.22
+- **Hooks Version**: 0.1.22
+
+<div className="changelog-heading">Bug Fixes 🚀</div>
+
+1.  **State Handling for API_ERROR Events:** Fixed an issue where the state received inside the onEvent callback for the `API_ERROR` event type was outdated and did not reflect the expected latest state. This has been resolved to ensure that the latest state, along with the error received in the response, is now properly passed to the callback.
+2.  **File Path and Naming Consistency:** Fixed an issue where the file paths and style names in the documentation were not consistent with the component names. The paths and style names are now aligned with the corresponding components to ensure clarity and consistency in the documentation.
+3.  **`pagetype` Value Handling:** Fixed an issue where the pagetype value in the configuration was being overridden to boolean in the API request, regardless of what the user had passed. The pagetype value is now sent as provided in the configuration, ensuring correct behavior.
+
+## 0.1.18
+
+- **Components Version**: 0.1.18
+- **Hooks Version**: 0.1.18
+
+<div className="changelog-heading">Features 🚀</div>
+
+1. Addition of category path in the summary hook to handle when the category calls are made.
+2. Introduction of seperate handling of the page number in the Web URL and API URL.
+3. One file for whole CSS: Bundled CSS introduced.
+
+<div className="changelog-heading">Bug Fixes 🚀</div>
+
+1. Pagination on going back was resetting to initial state.
+2. On trying to read the category value from URL on page load, was being considered as externalParams as well.
+3. Null exception handling for all components.
+
+## 0.1.17
+
+- **Components Version**: 0.1.17
+- **Hooks Version**: 0.1.17
+
+<div className="changelog-heading">Features 🚀</div>
+
+1. The category support is introduced with multiple ways to integrate browse. The category can be left to be handled completly by the sdk or `useCategory` hook can be used as an additional method for integrating category pages into the website.
+2. The `forceReload` option in the search box is provided to allow users to reload the page.
+3. Redirects support has been introduced, allowing users to navigate to a different page.
+4. Back Support: On going back, landing to the same state is enabled.
+
+## Initial Release
+
+- **Components Version**: 0.1.3
+- **Hooks Version**: 0.1.2
+
+<div className="changelog-heading">Highlights ⚡️</div>
+
+The first official release of the React Search SDK, designed for seamless integration of advanced search capabilities into React applications.
+
+<div className="changelog-heading">Features 🚀</div>
+
+1. **Supports Multiple Rendering Approaches**: Seamlessly integrates with Server-Side Rendering (SSR), Client-Side Rendering (CSR), and a Headless Integration approach for building completely custom UIs.
+2. **Pre-built Search Components**: Easily integrate search functionality with pre-configured components like: SearchBox, Facets, Pagination, Products etc.
+3. **State Management with Hooks**: Manage search state effortlessly with custom React hooks .
+4. **Customizable UI**: Fully customizable components with support for custom styles, themes, and render methods.
+5. **Declarative API**: Simplifies integrating and managing search behaviors with React's declarative approach.
+6. **Accessibility**: Components adhere to accessibility best practices, ensuring inclusive experiences.
+7. **Compatibility**: Designed for React 16.8+ with support for functional components and hooks.

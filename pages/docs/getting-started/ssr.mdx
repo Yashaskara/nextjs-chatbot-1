@@ -1,0 +1,148 @@
+import Link from 'next/link';
+import { Cards, Card, Steps, Callout } from 'nextra/components';
+
+import ArrowRightIcon from "../../../components/icons/ArrowRightIcon";
+import ServerIcon from "../../../components/icons/ServerIcon";
+
+# Server Side Rendering (SSR)
+
+The SSR package is ideal for e-commerce websites where content needs to be dynamically generated on the server and sent to the client as fully rendered HTML. This approach ensures fast initial loads, improved SEO, and enhanced accessibility. SSR is particularly useful for dynamic product pages, category pages, and personalized shopping experiences that require real-time data rendering.
+
+## Who is this intended for?
+
+This package is designed for developers building e-commerce platforms that require:
+
+- **SEO-Optimized Product Pages**: For landing pages, product detail pages, and category pages where SEO is crucial, SSR ensures that content is fully rendered and crawlable by search engines, improving search rankings and visibility.
+- **Fast Initial Page Loads**: SSR reduces time-to-first-paint (TTFP) by delivering pre-rendered content, creating a seamless shopping experience even on slower networks or devices.
+- **Dynamic and Personalized Data**: Serve real-time, user-specific data such as product recommendations, pricing, or offers directly on the first render, improving customer engagement.
+- **Enhanced User Experiences**: Combine server-side efficiency with client-side interactivity for features like product filters, search results, and cart updates, ensuring a smooth and responsive shopping journey.
+
+For client-side rendering or headless setups, explore the following options:
+
+<Cards>
+    <Card icon={<>Client Side Rendering<ArrowRightIcon/></>} href="/docs/getting-started/csr" />
+	<Card icon={<>Hooks<ArrowRightIcon/></>} href="/docs/getting-started/customHooks" />
+</Cards>
+
+## Prerequisites
+
+Before proceeding, ensure you have the following:
+
+- Next.js (v14.2 or higher)
+- Node.js (v18 or higher)
+- npm or yarn for package management
+- A Next.js project already configured for SSR
+
+## Installation
+
+<Callout type="info" emoji="ℹ️">
+	<div>**Note:**</div>
+	<div>
+		Refer to the <Link href={"/docs/changelog"}>**Change Log**</Link> page for details on the latest version, including its features, upgrades, and fixes.
+	</div>
+</Callout>
+
+<Steps>
+### Install the SSR Package
+
+Add the Unbxd React SDK SSR package to your e-commerce project:
+
+```bash
+npm install @unbxd-ui/react-search-components
+```
+
+Or with Yarn:
+
+```bash
+yarn add @unbxd-ui/react-search-components
+```
+
+### Install Hooks Package
+
+For advanced customization, install the hooks package:
+
+```bash
+npm install @unbxd-ui/react-search-hooks
+```
+
+Or with Yarn:
+
+```bash
+yarn add @unbxd-ui/react-search-hooks
+```
+
+### Setting up the UnbxdSearchSSRWrapper
+
+The `UnbxdSearchSSRWrapper` is the core component for integrating Unbxd's search capabilities into your Next.js application. It ensures smooth data flow and renders dynamic, SEO-friendly pages.
+To learn more about its configuration and usage, visit the documentation here:
+
+<Card icon={<ServerIcon />} title="UnbxdSearchSSRWrapper" href="/docs/unbxdSearchWrapperSSR" style={{ marginTop: "10px", width: "fit-content" }} />
+
+```jsx
+import { UnbxdSearchSSRWrapper } from "@unbxd-ui/react-search-hooks";
+
+<UnbxdSearchSSRWrapper
+	siteKey="YOUR_SITE_KEY" 
+	apiKey="YOUR_API_KEY" 
+	defaultValues={{ ... }}
+	webUrlConfig={{ ... }}
+	apiUrlConfig={{ ... }}
+	onEvent={({type, message, value, state}) => {}}
+	setWebUrl={() => {}}
+	currentPath=""
+>
+	{/* Add your components here */}
+</UnbxdSearchSSRWrapper>
+```
+
+### Setup in Next.js
+
+Use the SSR components within your Next.js pages or build custom components tailored to your e-commerce needs:
+
+```jsx
+import { UnbxdSearchSSRWrapper } from "@unbxd-ui/react-search-hooks";
+import { SearchBox, Products } from "@unbxd-ui/react-search-components";
+
+function App() {
+	return (
+		<UnbxdSearchSSRWrapper apiKey="YOUR_API_KEY" siteKey="YOUR_SITE_KEY">
+			<SearchBox />
+			<Products />
+		</UnbxdSearchSSRWrapper>
+	);
+}
+
+export default App;
+```
+
+### Configure Headers
+
+Pass headers like `userId`, `userAgent`, or `currentPath` to personalize content delivery. For more details, visit the documentation <Link style={{ color: "blue" }} href={"/docs/unbxdSearchWrapperSSR#headers"}>here</Link>.
+
+### Middlewares
+
+Leverage middlewares in your Next.js application to capture headers like `Authorization` for authenticated users or `Accept-Language` for localized content. These headers can enhance the server-side rendering process by delivering tailored content.
+
+```js copy
+export function middleware(request: NextRequest) {
+  const headers = new Headers(request.headers);
+  headers.set("x-path-name", request.nextUrl.href);
+  return NextResponse.next({ headers });
+}
+```
+
+### Customize and Configure
+
+Dive deeper into our documentation to explore customization options for search components, product displays, and hooks to align with your e-commerce requirements.
+
+</Steps>
+
+## Best Practices for SSR.
+
+To maximize the potential of SSR for your e-commerce website, follow these best practices:
+
+- **Optimize Product and Category Pages**: Use SSR to pre-render dynamic content for better SEO and faster load times, especially for high-traffic pages.
+- **Minimize API Calls**: Efficiently fetch and cache data to reduce server load and improve performance.
+- **Personalize Content**: Leverage headers and middlewares to deliver localized, user-specific, or device-optimized content on first render.
+- **Seamless Client-Side Hydration**: Ensure a smooth transition from server-side rendering to client-side interactions for dynamic features like filters and carts.
+- **Leverage Documentation**: Regularly refer to SDK examples and guides to implement advanced configurations and avoid common pitfalls.

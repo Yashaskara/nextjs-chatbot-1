@@ -1,0 +1,106 @@
+import CSRWrapper from "../../components/CSRWrapper";
+import { Banner } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+import Image from "next/image";
+
+import Pills from "../../components/Pills";
+import HookIcon from "../../components/icons/HookIcon";
+
+# Banner
+
+## Overview
+
+In e-commerce, a banner is a graphical advertisement that is typically displayed on a web page or email.
+Banners are often used to promote a product or service, or to direct visitors to a specific landing page.
+They can come in a variety of sizes and formats, such as static images, animated gifs, or video. 
+Banners are often used as part of online advertising campaigns to generate more traffic to a website and to increase conversions and sales.
+
+## Usage
+
+```js copy 
+// importing component
+import { Banner } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/banner.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/banner.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **Banner** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Live Demo
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{width: "70%", padding: "20px 15px" }}>
+		<Image className="banner-image" src="/react-search/banner-gartner.webp" alt="Banner Image" width="200" height="200" priority />
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+		```js copy {7}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Banner } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<Banner />
+			...
+		</UnbxdSearchWrapper>
+		```
+    </div>
+</div>
+
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### openNewTab
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"170px"} />
+</div>
+
+- Determines if content must open in new tab on clicking the banner.
+- Default Value: `true`.
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "banner-wrapper", // used for the banner wrapper when banner is in HTML format
+	image: "banner-image" // used for the banner image when banner is an image
+}}
+```
+
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useBanner</div>
+
+To use the Unbxd React Search SDK without the pre-built Banner component, add the functionality to your custom component using the useBanner hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useBanner" href="/docs/useBanner" />
+</Cards>

@@ -1,0 +1,135 @@
+import { Cards, Card, Callout } from "nextra/components";
+import Pills from "../../components/Pills";
+
+import SearchIcon from "../../components/icons/SearchIcon";
+
+# useFacets
+
+## Overview
+
+The useFacets hook is designed to manage the facets state for an e-commerce site. It enables customers to retrieve the set of facets for the current query and easily select or deselect them as needed. This hook is particularly useful for filtering results based on the active query.
+
+## Usage
+
+```js copy
+import { useFacets } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useFacets** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useFacets } from '@unbxd-ui/react-search-hooks';
+
+const FacetComponent = () => {
+    const { facets, stats, selectedFacets, getFacetByName, addFacet, removeFacet, clearFacet } = useFacets();
+
+    return (
+        // TODO: in addition to this code example, another one must be added for range facet
+    );
+};
+```
+
+## Hook API
+
+
+### Return Values
+<div style={{ position: "relative" }}>
+	#### facets
+	<Pills pills={[{ type: "type", label: "object" }]} left={"85px"} />
+</div>
+
+- This value returns all the facets for a particular query in their original form, exactly as provided by the API.
+
+
+<div style={{ position: "relative" }}>
+	#### stats
+	<Pills pills={[{ type: "type", label: "object" }]} left={"75px"} />
+</div>
+
+- This value returns the stats object for a particular query in their original form, exactly as provided by the API.
+
+
+<div style={{ position: "relative" }}>
+	#### selectedFacets
+	<Pills pills={[{ type: "type", label: "object" }]} left={"165px"} />
+</div>
+
+- This value returns the selectedFacets object, containing information about the currently selected facets.
+
+<div style={{ position: "relative" }}>
+	#### getFacetByName
+	<Pills pills={[{ type: "type", label: "function" }]} left={"185px"} />
+</div>
+
+- This function returns an object for a specific facet, with name passed as the parameter.
+- Parameters:
+	- `name` is the name of the facet from the feed.
+	- `searchStr` parameter is a search string that can be used to filter and search for specific facet values.
+- Usage:
+
+```js copy
+getFacetByName(name, searchStr);
+```
+
+
+<div style={{ position: "relative" }}>
+	#### addFacet
+	<Pills pills={[{ type: "type", label: "function" }]} left={"110px"} />
+</div>
+
+- This function simply adds the selected facet to the selectedFacets object, which represents the state of the currently selected facets.The selection of the facet can be either `single selec` or `multiselect` based on one of the parameter `multiselect`.
+- Parameters:
+	- `name` is the name of the facet from the feed for which the selection is made.
+	- `value` is the value of the facet which has been selected.
+	- `multiselect` parameter determines whether the selection is a single or multiple select. If set to false, the passed value will be selected, replacing any previously selected value (i.e., single select). If set to true, multiple values can be passed as an array, and all those values will be selected simultaneously (i.e., multiple select). 
+- Usage:
+
+```js copy
+addFacet(name, value, multiselect);
+```
+
+
+<div style={{ position: "relative" }}>
+	#### removeFacet
+	<Pills pills={[{ type: "type", label: "function" }]} left={"145px"} />
+</div>
+
+- This function removes/de-selects the passed in value from the selectedFacets in the state.
+- Parameters:
+	- `name` is the name of the facet from the feed for which the de-selection is made.
+	- `value` is the value which needs to removed from the selectedFacets object in the state.
+- Usage:
+
+```js copy
+removeFacet(name, value);
+```
+
+
+<div style={{ position: "relative" }}>
+	#### clearFacet
+	<Pills pills={[{ type: "type", label: "function" }]} left={"125px"} />
+</div>
+
+- This function removes out the specific facet or entire selectedFacets object in the state based on a parameter `name`.
+- Parameters:
+	- `name` parameter represents the name of a facet in the feed. If provided and this facet is present in the selectedFacets object, it will be completely removed. If name is not provided, the entire selectedFacets object will be cleared or reset in the state.
+- Usage:
+
+```js copy
+clearFacet(name);
+```
+
+
+### Use Cases
+
+<Cards>
+	<Card icon={<SearchIcon />} title="SearchBox" href="/docs/searchbox" />
+</Cards>

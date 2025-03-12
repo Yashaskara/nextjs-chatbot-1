@@ -1,0 +1,258 @@
+import { ProductViewDropdown, Products } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../../components/CSRWrapper";
+import Pills from "../../../components/Pills";
+import HookIcon from "../../../components/icons/HookIcon";
+import DropdownIcon from "../../../components/icons/DropdownIcon";
+import RadioButtonIcon from "../../../components/icons/RadioButtonIcon";
+import ButtonIcon from "../../../components/icons/ButtonIcon";
+
+# Product View Dropdown
+
+## Overview
+
+The SDK includes a feature that allows users to customize the product display on the Search Results Page (SRP) by selecting from various view options. For example, if the user provides options such as "grid" and "list," the products will be arranged accordingly—displayed in a grid layout when "grid" is selected, or in a list format when "list" is chosen. This flexibility ensures that the product presentation aligns with the user's preferences.
+
+## How it Works ?
+
+When the user selects an option from the product view, the state is updated with the corresponding view. The Products component then applies this view from the state as a class to the wrapper, allowing CSS to adjust the appearance and alignment of the products accordingly.
+
+## Usage
+
+```js copy
+// importing component
+import { ProductViewDropdown } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/productViewDropdown.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/productViewDropdown.css");
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **ProductViewDropdown** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search
+		functionality work properly.
+	</div>
+</Callout>
+
+## Live Demo
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{ width: "100%", padding: "15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8,
+				view: "FourGrid"
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<div style={{ marginBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+				<ProductViewDropdown
+					showLabel={true}
+					label={"View:"}
+					options={
+						[
+							{ label: `TwoGrid`, value: "TwoGrid" },
+							{ label: "ThreeGrid", value: "ThreeGrid" },
+							{ label: "FourGrid", value: "FourGrid" }
+						]
+					}
+					CustomComponent={({ item }) => {
+						if (item.value === "TwoGrid") {
+							return <span>||</span>
+						} else if (item.value === "ThreeGrid") {
+							return <span>|||</span>
+						} else {
+							return <span>||||</span>
+						}
+					}}
+				/>
+			</div>
+			<Products />
+		</CSRWrapper>
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+    	```js copy {7-26}
+    	// code for the above example
+    	import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+    	import { ProductViewDropdown, Products } from "@unbxd-ui/react-search-components";
+
+    	<UnbxdSearchWrapper>
+    		...
+    		<ProductViewDropdown
+    			showLabel={true}
+    			label={"View:"}
+    			options={
+    				[
+    					{ label: `TwoGrid`, value: "TwoGrid" },
+    					{ label: "ThreeGrid", value: "ThreeGrid" },
+    					{ label: "FourGrid", value: "FourGrid" }
+    				]
+    			}
+    			CustomComponent={({ item }) => {
+    				if (item.value === "TwoGrid") {
+    					return <span>||</span>
+    				} else if (item.value === "ThreeGrid") {
+    					return <span>|||</span>
+    				} else {
+    					return <span>||||</span>
+    				}
+    			}}
+    		/>
+    		<Products />
+    		...
+    	</UnbxdSearchWrapper>
+    	```
+    </div>
+
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### CustomComponent
+	<Pills pills={[{ type: "type", label: "component" }]} left={"240px"} />
+</div>
+
+This component renders each button and receives the clicked option in its props as `item` .For e.g., `{label: "GRID", value: "GRID"}`. <br></br>
+Example component:
+
+```js
+const CustomComponent = (props) => {
+	const { item } = props;
+	return item.label;
+};
+```
+
+<div style={{ position: "relative" }}>
+	### ActivatorComponent
+	<Pills pills={[{ type: "type", label: "component" }]} left={"255px"} />
+</div>
+
+- The component that will be used as the dropdown activator. Clicking this will show/hide the dropdown options.
+- Default Value:
+
+```js copy
+const ActivatorComponent = ({ selected, styles }: { selected: any, styles: any }) => {
+	return <>
+		<div>{selected ? selected?.label : "Default"}</div>
+		<div style={{ marginTop: "-10px" }}>&#8964;</div>
+	</>
+};
+```
+
+<div style={{ position: "relative" }}>
+	### showLabel
+	<Pills
+		pills={[
+			{ type: "required", label: "required" },
+			{ type: "type", label: "boolean" },
+		]}
+		left={"145px"}
+	/>
+</div>
+
+A boolean value which indicates if the label must be shown or not. By default, the value is `true`.
+
+<div style={{ position: "relative" }}>
+	### label
+	<Pills pills={[{ type: "type", label: "string" }]} left={"80px"} />
+</div>
+
+The text that must be shown as the label to the view component.
+
+<div style={{ position: "relative" }}>
+	### options
+	<Pills
+		pills={[
+			{ type: "required", label: "required" },
+			{ type: "type", label: "array" },
+		]}
+		left={"110px"}
+	/>
+</div>
+
+The options that must be displayed in the dropdown.
+The options must be of the form:
+
+```js copy
+options={[{ value: "GRID", label: "GRID" }, {value: "LIST", label: "LIST"}]}
+```
+
+<Callout>
+	<div>Note</div>
+	<div>The value provided in the options is applied as a class to the products wrapper.</div>
+</Callout>
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+This prop will be used to style the component. The value must use a defined structure (the structure can be seen in the following example).
+The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	root: "view-root",
+	label: "view-label",
+	selectWrapper: "view-dd-wrapper",
+	select: "view-dd-select",
+	body: "view-dd-body",
+	option: "view-dd-option",
+	selected: "view-dd-selected",
+}}
+```
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useProductView</div>
+
+To use the Unbxd React Search SDK without the pre-built ProductViewDropdown component, add the functionality to your custom component using the useProductView hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useSorting" href="/docs/useSorting" />
+</Cards>
+
+## Related Components
+
+<Cards>
+	<Card icon={<ButtonIcon />} title="Product View Buttons" href="/docs/product-view/buttons" />
+	<Card icon={<RadioButtonIcon />} title="Product View Radio Buttons" href="/docs/product-view/radio" />
+</Cards>

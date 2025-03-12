@@ -1,0 +1,80 @@
+import { Card, Cards, Callout } from "nextra/components";
+
+import Pills from "../../components/Pills";
+import SummaryIcon from "../../components/icons/SummaryIcon";
+import ButtonIcon from "../../components/icons/ButtonIcon";
+import DropdownIcon from "../../components/icons/DropdownIcon";
+import RadioButtonIcon from "../../components/icons/RadioButtonIcon";
+
+# useProductView
+
+## Overview
+
+The useProductView hook is specifically designed to handle and streamline how products are displayed to users within an application. 
+By managing various aspects of the product view, such as layout configurations, this hook ensures a consistent and optimized user experience. 
+It abstracts the complexities involved in adjusting product displays, allowing developers to easily control how products are presented across different components or pages, enhancing both flexibility and usability.
+
+## Usage
+
+```js copy
+import { useProductView } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useProductView** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useProductView } from "@unbxd-ui/react-search-hooks";
+
+const ProductView = () => {
+    const { view, setView } = useProductView()
+
+    const handleViewClick = (value) => {
+        setView(value)
+    }
+
+    return <div className="view-root">
+        <label htmlFor="view-options" className="view-label">View As:</label>
+        <div id="view-options" className="view-options">
+            <button className={view === "grid" ? "selected-view": ""} onClick={() => { handleViewClick("grid") }}>Grid</button>
+            <button className={view === "list" ? "selected-view": ""} onClick={() => { handleViewClick("list") }}>List</button>
+        </div>
+    </div>
+}
+```
+
+
+## Hook API
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### view
+	<Pills pills={[{ type: "type", label: "function" }]} left={"70px"} />
+</div>
+
+- The current value of how the products are being viewed.
+
+
+<div style={{ position: "relative" }}>
+	#### setView
+	<Pills pills={[{ type: "type", label: "function" }]} left={"100px"} />
+</div>
+
+- The function to change the product view value, which will be applied to the products wrapper element.
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<DropdownIcon />} title="Product View As Dropdown" href="/docs/product-view/dropdown" />
+	<Card icon={<ButtonIcon />} title="Product View As Buttons" href="/docs/product-view/buttons" />
+	<Card icon={<RadioButtonIcon />} title="Product View As Radio Buttons" href="/docs/product-view/radio" />
+</Cards>

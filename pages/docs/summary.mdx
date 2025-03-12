@@ -1,0 +1,136 @@
+import { FixedPagination, Products, Summary } from "@unbxd-ui/react-search-components";
+import { Card, Cards, Callout } from "nextra/components";
+
+import CSRWrapper from "../../components/CSRWrapper";
+import Pills from "../../components/Pills";
+import HookIcon from "../../components/icons/HookIcon";
+
+# Summary
+
+## Overview
+
+The `Summary` component in an e-commerce platform is designed to enhance the search experience by automatically correcting user queries and providing a concise overview of the search results. 
+Leveraging natural language processing (NLP) and machine learning algorithms, this feature detects and corrects spelling errors in user search queries.
+When a user enters a search term that might contain a typo or misspelling, the system checks the term against a comprehensive dictionary. 
+If an error is detected, the Summary component suggests the correct spelling and adjusts the search results accordingly. 
+For state, if a user searches for “iphone11” instead of “iPhone 11,” the system will correct the query and display results for “iPhone 11.”
+In addition to correcting search queries, the Summary component also displays the number of products currently shown, helping users understand the scope of their search results.
+This dual functionality not only improves user experience by ensuring more accurate search results but also provides real-time feedback on the effectiveness of the search query.
+By continuously learning from user interactions, the Summary component enhances its ability to recognize and correct spelling errors, thereby increasing the likelihood of users finding the products they seek, even if their initial search contained mistakes.
+
+
+## Usage
+
+```js copy
+// importing component
+import { Summary } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/summary.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/summary.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **Summary** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Live Demo 
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{ width: "100%", padding: "20px 15px"}}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906" 
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{query: {
+				addToUrl: false,
+			},
+			sort: {
+				addToUrl: false,
+			},
+			view: {
+				addToUrl: false,
+			},
+			pageSize: {
+				addToUrl: false,
+			},
+			currentPage: {
+				addToUrl: false,
+			},
+			facets: {
+				addToUrl: false,
+			},
+			pagination: {
+				addToUrl: false
+			}}} 
+		>
+			<Summary />
+            <Products />
+            <FixedPagination 
+                onPaginate={() => {
+					document.querySelector(".spellcheck-wrapper")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+            />
+		</CSRWrapper>
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+		```js copy {7}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { FixedPagination, Products, Summary } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<Summary />
+			<Products />
+			<FixedPagination />
+			...
+		</UnbxdSearchWrapper>
+		```
+    </div>
+</div>
+
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+    wrapper: "spellcheck-wrapper", // used for the wrapper component
+    summaryText: "spellcheck-text", // used to show the query text
+    productNumbers: "spellcheck-summary" // used to show the numbers of the currently shown products
+}}
+```
+
+
+## Related Hooks
+
+<Cards>
+	<Card icon={<HookIcon />} title="useQuery" href="/docs/useQuery" />
+	<Card icon={<HookIcon />} title="useCategory" href="/docs/useCategory" />
+	<Card icon={<HookIcon />} title="useProducts" href="/docs/useProducts" />
+</Cards>

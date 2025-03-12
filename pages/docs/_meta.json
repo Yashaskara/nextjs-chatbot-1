@@ -1,0 +1,47 @@
+{
+    "index": "Introduction",
+    "getting-started": "Getting Started",
+    "changelog": "Changelog",
+    "faqs": "Troubleshooting and FAQs",
+    "Wrappers": {
+        "type": "separator",
+        "title": "Wrappers"
+    },
+    "unbxdSearchWrapperCSR": "UnbxdSearchWrapper - CSR",
+    "unbxdSearchWrapperSSR": "UnbxdSearchWrapper - SSR",
+    "Components": {
+        "type": "separator",
+        "title": "Components"
+    },
+    "searchbox": "SearchBox",
+    "products": "Products",
+    "facets": "",
+    "pagination": "",
+    "pageSize": "PageSize",
+    "product-view": "",
+    "sort": "",
+    "breadcrumb": "Breadcrumb",
+    "banner": "Banner",
+    "summary": "Summary",
+    "more-components": "",
+    "Hooks": {
+        "type": "separator",
+        "title": "Hooks"
+    },
+    "useQuery": "useQuery",
+    "useAutosuggest": "useAutosuggest",
+    "useCategory": "useCategory",
+    "useProducts": "useProducts",
+    "useFacets": "useFacets",
+    "usePagination": "usePagination",
+    "usePageSize": "usePageSize",
+    "useProductView": "useProductView",
+    "useSorting": "useSorting",
+    "useBreadcrumb": "useBreadcrumb",
+    "useBanner": "useBanner",
+    "extra-configs": {
+        "type": "page",
+        "title": "Extra Configs",
+        "display": "hidden"
+    }
+}

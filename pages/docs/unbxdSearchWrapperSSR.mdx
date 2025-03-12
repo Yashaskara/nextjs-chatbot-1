@@ -1,0 +1,348 @@
+import { Cards, Card, Callout } from "nextra/components";
+
+import HookIcon from "../../components/icons/HookIcon";
+import ButtonIcon from "../../components/icons/ButtonIcon";
+import CheckboxIcon from "../../components/icons/CheckboxIcon";
+import RadioButtonIcon from "../../components/icons/RadioButtonIcon";
+import CategoryTreeIcon from "../../components/icons/CategoryTreeIcon";
+import RangeSliderIcon from "../../components/icons/RangeSliderIcon";
+import SelectedHandIcon from "../../components/icons/SelectedHandIcon";
+import Pills from "../../components/Pills";
+import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+import { CheckboxFacet, Products } from "@unbxd-ui/react-search-components";
+import Link from "next/link";
+
+# UnbxdSearchWrapperSSR
+
+## Overview
+
+The **UnbxdSearchWrapperSSR** is a top-level wrapper component that encapsulates all Server-Side Rendering (SSR) components or hooks used in the application.
+It acts as the foundational layer for the SDK's functionality, ensuring that any necessary configuration or setup is applied globally.
+The wrapper accepts a set of props that allow users to customize the behavior of the SDK to suit their specific needs.
+
+<Callout type="info">
+	<div>**Note:**</div>
+	<div>The server-side rendering for this application is powered by Next.js. As of now we support only Next.js for SSR.</div>
+</Callout>
+
+## Usage
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		import { headers } from "next/headers";
+		import { UnbxdSearchWrapperSSR } from "@unbxd-ui/react-search-hooks";
+		
+		const headerList = headers();
+		const currentPath = headerList.get("x-path-name");
+		
+		<UnbxdSearchWrapperSSR
+			siteKey="TEST_SITEKEY" 
+			apiKey="TEST_APIKEY" 
+			defaultValues={{ ... }}
+			webUrlConfig={{ ... }}
+			apiUrlConfig={{ ... }}
+			onEvent={({type, message, value, state}) => { }}
+			setWebUrl={()=>{}}
+			currentPath={currentPath}
+			>
+			... 
+		</UnbxdSearchWrapperSSR>
+		```
+	</div>
+</div>
+
+<Callout type="warning">
+	<div>
+		<strong>Important:</strong>
+	</div>
+	<div>
+		The **UnbxdSearchWrapperSSR** component is the core of the SDK, managing all logic and data handling; all other components must be nested within this main
+		component for the search functionality to work seamlessly.
+	</div>
+</Callout>
+
+## Configuring Search vs Category
+
+1. **Search**: A page is considered a search page by default unless configured differently.<br/>
+2. **Category**: To designate a page as a category page, users should pass the browse configurations within the wrapper. For details on how to set this up, refer to the <Link style={{ color: "blue" }} href={"/docs/unbxdSearchWrapperSSR#apiurlconfig"}>apiUrlConfig > category</Link> configurations.
+
+## Middlewares
+
+To manage headers during the first render in SSR, use `Middlewares`. Middleware can capture headers like Authorization for authenticated requests, User-Agent for device-specific content, or Accept-Language for localization etc.
+The captured headers can be passed to the server-side rendering process, where the initial render will customize content based on these headers.
+
+```js copy
+export function middleware(request: NextRequest) {
+	const headers = new Headers(request.headers);
+	headers.set("x-path-name", request.nextUrl.href);
+	return NextResponse.next({ headers });
+}
+```
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### siteKey
+	<Pills pills={[{ type: "type", label: "string" }]} left={"110px"} />
+</div>
+
+- This is the unique Site Key assigned by Unbxd to every site created in the console dashboard.
+- Refer to <Link style={{ color: "blue" }} href={"https://netcoreunbxd.com/docs/site-search/documentation/configure-site-profile/"}>this</Link> section for steps on how to get the Site Key for your account.
+
+<div style={{ position: "relative" }}>
+	### apiKey
+	<Pills pills={[{ type: "type", label: "string" }]} left={"105px"} />
+</div>
+
+- This is the unique API Key assigned to every site created in the console dashboard.
+- Refer to <Link style={{ color: "blue" }} href={"https://netcoreunbxd.com/docs/site-search/documentation/configure-site-profile/"}>this</Link> section for steps on how to get the API Key for your account.
+
+<div style={{ position: "relative" }}>
+	### defaultValues
+	<Pills pills={[{ type: "type", label: "object" }]} left={"180px"} />
+</div>
+
+- This takes in the default values for `query`, `pageSize`, `view`, `sort`, `currentPage` .
+
+| Config      | Datatype | Default value |
+| ----------- | -------- | ------------- |
+| query       | string   | \*            |
+| currentPage | number   | 1             |
+| pageSize    | number   | 12            |
+| view        | string   | ""            |
+| sort        | string   | ""            |
+
+- Usage:
+
+```js copy
+defaultValues = { pageSize: 4, query: "pants", currentPage: 3, view: "", sort: "" };
+```
+
+<div style={{ position: "relative" }}>
+	### webUrlConfig
+	<Pills pills={[{ type: "type", label: "object" }]} left={"180px"} />
+</div>
+
+- Allows you to pass various settings related to the URL to make it more user-friendly. These configurations can include adjustments such as
+  cleaner URL structures, more readable query parameters, or optimized links, enhancing the overall user experience and improving navigation clarity. Below is the
+  usage with each config having default values.
+
+| Config              | Datatype | Default value                                                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | -------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| hashMode            | boolean  | `false`                                                                          | Turn this flag on if you want the URL to use `hash` (`#`) instead of using regular query string delimiter (`?`).                                                                                                                                                                                                                                                                                                   |
+| queryParamSeperator | string   | `&`                                                                              | Seperator used to seperate out each query param in the url.                                                                                                                                                                                                                                                                                                                                                        |
+| keySeperator        | string   | `=`                                                                              | Seperator used to seperate each param key and value.                                                                                                                                                                                                                                                                                                                                                               |
+| orderOfParams       | array    | `[]`                                                                             | Add the keys in the order you want them to appear in the url.                                                                                                                                                                                                                                                                                                                                                      |
+| query               | object   | `{ addToUrl: true, key: "query" }`                                               | - `addToUrl` : Turn to `true/false` to remove query param from the url.<br/><br/> - `key` : Pass this to customize the query param key in the url.                                                                                                                                                                                                                                                                 |
+| category            | object   | `{ addToUrl: true, key: "p" }`                                                   | - `addToUrl` : Turn to `true/false` to add/remove category page info from the url.<br/><br/> - `key` : Whatever passed in here , is used as a key for the browse query param in the url.                                                                                                                                                                                                                           |
+| sort                | object   | `{ addToUrl: true, key: "sort", values: {} }`                                    | - `addToUrl`: Turn to `true/false` to add/remove the sort param from the url.<br/><br/> - `key`: Whatever passed in here , is used as a key for the sort in the url.<br/><br/> - `values`: This works as a replacer for the values of sort.                                                                                                                                                                        |
+| view                | object   | `{ addToUrl: false, key: "view", values: {} }`                                   | - `addToUrl`: Turn to `true/false` to add/remove the view (`view`) param from the url. <br/><br/> - `key`: Whatever passed in here , is used as a key for the view in the url.<br/><br/> - `values`: This works as a replacer for the values of view                                                                                                                                                               |
+| pageSize            | object   | `{ addToUrl: true, key: "rows" }`                                                | - `addToUrl`: Turn to `true/false` to add/remove the pagesize (`rows`) param from the url.<br/><br/> - `key`: Whatever passed in here , is used as a key for the pagesize in the url.                                                                                                                                                                                                                              |
+| pagination          | object   | `{ addToUrl: true, key: "start", usePageNo: true}`                               | - `addToUrl` - Turn to `true/false` to add/remove the page (`page/start`) param from the url.<br/><br/> - `key` - Whatever passed in here , is used as a key for the page in the url.<br/><br/> - `usePageNo`: Indicates whether to use page numbers (1,2,3 etc) or indices (0,12,24 etc) in the url.                                                                                                              |
+| facets              | object   | `{ algo: "CUSTOM" , addToUrl: true, valuesSeparator: ",", keys: {}, values: {}}` | - `algo`: , `addToUrl`: When turned off , the filter string would not be added to the url. <br/><br/> - `valuesSeparator`: Pass in the character which you would like to use as a seperator between the values for same facet. <br/><br/> - `keys`: Replace the facet actual names with some custom names in the url . <br/><br/> - `values`: Replace the facet actual values with some custom values in the url . |
+| externalParams      | object   | null                                                                             | These are the params other than what unbxd appends , that user wants to add and retain in the url . This can have either of three values : `null`, `[]` , `["location", "test_param"]`. (`null`: No external params will be considered, `[]`: All external params other than unbxd will be considered , `["location"]`: Whatever passed in here , for eg: location here will only be retained.)                    |
+| rangeFacets         | array    | `[]`                                                                             | Mention all the range facets names that you would be using.This would help sdk to render facets better.                                                                                                                                                                                                                                                                                                            |
+| categoryFacets      | array    | `[]`                                                                             | Mention all the category facets names that you would be using.This would help sdk to render facets better.                                                                                                                                                                                                                                                                                                         |
+
+- Usage:
+
+```js copy
+webUrlConfig = {
+	hashMode: false
+	queryParamSeperator: "&"
+	keySeperator: "="
+	orderOfParams: []
+	query: {
+		addToUrl: true,
+		key: "query",
+	},
+	category: {
+		addToUrl: true,
+		key: "browse"
+	}
+	sort: {
+		addToUrl: true,
+		key: "sort",
+		values: {}
+	},
+	view: {
+		addToUrl: false,
+		key: "view",
+		values: {}
+	},
+	pageSize: {
+		addToUrl: true,
+		key: "rows"
+	},
+	pagination: {
+		addToUrl: true,
+		key: "start",
+		usePageNo: true
+	},
+	facets: {
+		addToUrl: true,
+		valuesSeparator: ",",
+		keys: {},
+		values: {},
+	},
+	externalParams: null,
+	rangeFacets: [],
+	categoryFacets: []
+}
+```
+
+<div style={{ position: "relative" }}>
+	### apiUrlConfig
+	<Pills pills={[{ type: "type", label: "object" }]} left={"165px"} />
+</div>
+
+- This config allows you to pass some cutomization and additional features that are present to make in API URL.
+
+{/* TODO: must add the code for products.fields in API URL */}
+
+| Config           | Datatype | Default value                                                                                                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| category         | object   | `{browseQueryParam: 'p', page: '', page_type: '' }`                                                                          | - `browseQueryParam` : parameter that will go in the api url . Values can be `p` or `p-id`. <br/><br/> - `page`: Category page path needs to be passed in here.If left empty ,page will be considered as a SEARCH page.<br/><br/> - `page_type`: Type of the category page . Value can be `boolean`.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| products         | object   | `{fields: []}`                                                                                                               | - `fields`: Pass in the name of fields that needs to be extracted in the search response.<br/><br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| variants         | object   | `{enabled: false, count: 5, groupBy: 'v_colour;, attributes: `["title", "v_imageUrl"]`, mapping: {"image_url": v_imageUrl}}` | - `enabled`: Determines whether the variants should be made available for the products or not.<br/><br/> - `count`: Refers to the number of variants that needs to be shown for a product.<br/><br/> - `groupBy`: parameter that is used to group items in a dataset based on a specific field value. It's important to note that the field name used in the groupBy parameter should match the field name in the catalogue, otherwise the grouping may not work correctly.<br/><br/> - `attributes`: List of fields you need for each variant.<br/><br/> -`mapping`: Field mapping of the catalog attributes to the variant attributes. This is needed to render the variant information correctly.<br/><br/> |
+| spellCheck       | object   | `{enabled: false}`                                                                                                           | - `enabled`: This determines whether the spellcheck should be made available or not.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| facetMultiSelect | boolean  | `true`                                                                                                                       | Allows a user to select multiple values within a single facet .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| uc_param         | string   | `""`                                                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| extraParams      | object   | `{}`                                                                                                                         | Allows to pass some extra params which are needed to be in the search api call. For the values it can be anything including `function`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| headers          | object   | `{}`                                                                                                                         | Headers is an object that takes in search api headers and passes it to the Search Api. For the User id and Device type pass it in as `Unbxd-User-Id` and `Unbxd-Device-Type`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+
+<Callout>
+	<div>**Note:**</div>
+	<div>
+		- To manage headers during the first render in SSR , use `Middlewares`. - Middleware can capture headers like Authorization for authenticated requests,
+		User-Agent for device-specific content, or Accept-Language for localization etc. - The captured headers can be passed to the server-side rendering process,
+		where the initial render will customize content based on these headers.
+	</div>
+</Callout>
+
+- Usage:
+
+```js copy
+apiUrlConfig = {
+	category: {
+		browseQueryParam: "p",
+		page: "",
+		page_type: "boolean",
+	},
+	variants: {
+		enabled: true,
+		count: 6,
+		groupBy: "v_colour",
+		attributes: ["title", "v_imageUrl"],
+		mapping: { image_url: "v_imageUrl" },
+	},
+	spellCheck: {
+		enabled: true,
+	},
+	facetMultiSelect: true,
+	uc_param: "",
+	extraParams: { test: "abc" },
+};
+```
+
+<div style={{ position: "relative" }}>
+	### onEvent
+	<Pills pills={[{ type: "type", label: "function" }]} left={"120px"} />
+</div>
+
+- A function which helps in capture events and errors. Users can further run additional pieces of code like error handling or event tracking.
+- Default Value:
+
+```js copy
+const onEvent = ({ type, message, value, state }) => {
+	if (message) console.log(`${type}:`, message, value);
+	else console.log(type);
+};
+```
+
+- In parameters it receives :
+  - `type`: Which is the type of event like `BEFORE_API_CALL` , `AFTER_API_CALL` etc.
+  - `message`:
+  - `state` : Current state values like current page , current selected pagesize , current query etc.
+  - `value`:
+- Checkout the full list of events below :
+
+| Config                 | Description                                                                                                             |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `INITIALISED`          | This is the event triggered for the first time , once the Wrapper has initialized.                                      |
+| `BEFORE_API_CALL`      | This is the event that is triggered just before the Api call initiates.                                                 |
+| `AFTER_API_CALL`       | This is the event that gets triggered once the api call is done.                                                        |
+| `API_ERROR`            | This is the event that gets triggered if the API call fails. The error details can be found in the `state.error` block. |
+| `QUERY_UPDATED`        | Event that gets triggered when a query has been updated.                                                                |
+| `SORT_CLICKED`         | Event that gets triggered on updating the sort.                                                                         |
+| `BANNER_CLICKED`       | Event that gets triggered when there is a click on the banner.                                                          |
+| `BREADCRUMB_CLICKED`   | Event that gets triggered when there is a click on the breadcrumb.                                                      |
+| `FACET_ADDED`          | Event that gets triggered once a facet has been selected.                                                               |
+| `FACET_REMOVED`        | Event that gets triggered once a facet has been de-selected.                                                            |
+| `FACET_CLEARED`        | Event that gets triggered once all facets has been cleared.                                                             |
+| `PAGE_SIZE_CLICKED`    | Event that gets triggered when a pagesize has been selected.                                                            |
+| `PAGE_CLICKED`         | Event that gets triggered when a page number (in pagination) has been selected.                                         |
+| `PRODUCT_VIEW_CLICKED` | Event that gets triggered on selecting a view.                                                                          |
+| `ERROR`                | Event that gets triggered when an error occurs in some component.                                                       |
+
+<div style={{ position: "relative" }}>
+	### setWebUrl
+	<Pills pills={[{ type: "type", label: "function" }]} left={"145px"} />
+</div>
+
+- This function provides users with flexibility to customize how URL changes are handled in the application. Users can choose to either push new entries to the browser's history stack or replace the current entry, depending on the desired navigation behavior. Additionally, users have the option to leverage router functions to further control URL updates based on specific requirements.
+- Default Value:
+
+```js copy
+const setWebUrl = (newUrl: string) => {
+	window.history.pushState({}, "", newUrl);
+}
+```
+
+- If you are using React router below can be the code for customizing the behaviour of the url.
+
+```js copy
+const navigate = useNavigate();
+
+const setWebUrl = (newUrl: string) => {
+	navigate(newUrl);
+}
+```
+
+<div style={{ position: "relative" }}>
+	### currentPath
+	<Pills
+		pills={[
+			{ type: "type", label: "string" },
+			{ type: "type", label: "required" },
+		]}
+		left={"155px"}
+	/>
+</div>
+
+Send the current web url here, this helps sdk to maintain the state of the application.
+
+- Default Value: `""`.
+
+<Callout>
+	<div>
+		<div>**Note:**</div>
+		<div>
+			- To manage headers during the first render in SSR, use `Middlewares`. - Middleware can capture headers like Authorization for authenticated requests,
+			User-Agent for device-specific content, or Accept-Language for localization etc. - The captured headers can be passed to the server-side rendering
+			process, where the initial render will customize content based on these headers.
+		</div>
+	</div>
+</Callout>

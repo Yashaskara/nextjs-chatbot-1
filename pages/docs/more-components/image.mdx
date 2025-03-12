@@ -1,0 +1,103 @@
+import { Image } from "@unbxd-ui/react-search-components";
+
+import Pills from "../../../components/Pills";
+import { Cards, Card } from "nextra/components";
+import ProductsIcon from "../../../components/icons/ProductsIcon";
+
+# Image
+
+## Overview
+
+The `Image` component is a flexible and efficient way to display product images on your e-commerce website. This component is designed to enhance the visual appeal of your online store by ensuring that images load quickly and look great across all devices.
+
+## Usage
+
+```js copy
+// importing component
+import { Image } from "@unbxd-ui/react-search-components";
+
+// import style for the component
+import "@unbxd-ui/react-search-components/styles/image.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/image.css")
+```
+
+## Live Demo
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 5px" }}>
+		<Image imageUrl="/react-search/netcore-unbxd-logo.webp" />
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+        // code used for above example
+		import { Image } from "@unbxd-ui/react-search-components";
+
+		<Image imageUrl="image.png" />
+		```
+	</div>
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### imageUrl
+	<Pills pills={[{ type: "type", label: "string" }]} left={"125px"} />
+</div>
+
+- The URL of the image that must be rendered.
+
+<div style={{ position: "relative" }}>
+	### hoverImageUrl
+	<Pills pills={[{ type: "optional", label: "optional" }, { type: "type", label: "string" }]} left={"185px"} />
+</div>
+
+- The URL of the image that must be shown when the mouse cursor is hovered on the `Image` component.
+
+<div style={{ position: "relative" }}>
+	### fallbackUrl
+	<Pills pills={[{ type: "optional", label: "optional" }, { type: "type", label: "string" }]} left={"145px"} />
+</div>
+
+- The URL of the image that must be rendered when the original image URL gives some error. 
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	mainImage: "main-image" // used for the img element
+}}
+```
+
+## Related Components
+
+<Cards>
+	<Card icon={<ProductsIcon />} title="Products" href="/docs/products" />
+</Cards>

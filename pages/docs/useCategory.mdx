@@ -1,0 +1,86 @@
+import { Card, Cards, Callout } from "nextra/components";
+
+import Pills from "../../components/Pills";
+import SummaryIcon from "../../components/icons/SummaryIcon";
+
+# useCategory
+
+## Overview
+
+The **useCategory** hook in the SDK is designed to manage and update the selected category state. It provides a streamlined interface for accessing the current category path and updating it dynamically based on user interactions.
+
+## Usage
+
+```js copy
+import { useCategory } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useCategory** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useCategory } from "@unbxd-ui/react-search-hooks";
+
+const SummaryComponent = () => {
+	const { path, setCategory } = useCategory({ forceReload: false });
+
+	const handleCategoryClick = () => {
+		setCategory(`categoryPath:"Dresses"`)
+	};
+
+	return <div className="summary-wrapper">
+        <div className="summary-text">
+            Showing results for <b>'{path}'</b>
+        </div>
+        <div>
+            Do you want to view products for <span><b>'Dresses'</b></span>?
+        </div>
+    </div>
+};
+```
+
+
+## Hook API
+
+### Parameters
+
+<div style={{ position: "relative" }}>
+	#### forceReload
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"135px"} />
+</div>
+
+- Turn this boolean to `true` if you want the api call to trigger even when you hit the same query. If this is turned to `false`, then for the same query, multiple calls will not happen.
+- Default Value: `false`.
+
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### path
+	<Pills pills={[{ type: "type", label: "string" }]} left={"70px"} />
+</div>
+
+-   This value the current category path for which the products are being shown.
+
+
+<div style={{ position: "relative" }}>
+	#### setCategory
+	<Pills pills={[{ type: "type", label: "function" }]} left={"140px"} />
+</div>
+
+-   This function allows users to set a new category path by passing the desired path as a parameter. It updates the current browse state, enabling real-time adjustments based on user input or interactions.
+
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<SummaryIcon />} title="Summary" href="/docs/summary" />
+</Cards>

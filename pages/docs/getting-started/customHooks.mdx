@@ -1,0 +1,158 @@
+import Link from "next/link";
+import { Cards, Card, Steps, Callout } from 'nextra/components';
+
+import ArrowRightIcon from "../../../components/icons/ArrowRightIcon";
+import ClientIcon from "../../../components/icons/ClientIcon";
+
+# Headless Integration with Hooks
+
+For developers building e-commerce websites who want full control over the UI and prefer a headless approach, our Hooks package offers powerful, flexible hooks that connect directly to the Unbxd backend. This allows you to create unique shopping experiences tailored to your platform's branding and functionality.
+
+## Who is this intended for?
+
+These custom hooks are designed for developers who want complete control over the UI and functionality, enabling seamless integration with the core search and navigation features. Ideal for headless e-commerce integrations, these hooks provide data and state management logic while allowing teams to focus on creating a unique, branded user experience.
+
+This approach is best suited for:
+
+1. **Custom-Branded E-Commerce Platforms**: Developers creating distinctive, branded components that go beyond default templates can benefit from these hooks, enabling integration without predefined layouts or styles.
+2. **Applications with Specific UI Requirements**: Teams with strict UI/UX standards can design custom components, ensuring alignment with branding and optimal shopping experiences.
+3. **Headless or API-Driven Applications**: For developers building headless architectures, these hooks enable seamless functionality without UI constraints.
+4. **Advanced Customization Needs**: Developers requiring granular control over behaviors (e.g., conditional rendering, custom animations) can use hooks to create fully customized, responsive shopping features.
+
+For Client-Side Rendering (CSR) or Server-Side Rendering (SSR), explore the following options:
+
+<Cards>
+    <Card icon={<>Client Side Rendering<ArrowRightIcon/></>} href="/docs/getting-started/csr" />
+    <Card icon={<>Server Side Rendering<ArrowRightIcon/></>} href="/docs/getting-started/ssr" />
+</Cards>
+
+## Prerequisites
+
+Before proceeding, ensure you have the following:
+
+- React (v18.2 or higher) or Next.js (v14.2 or higher)
+- Node.js (v18 or higher)
+- npm or yarn for package management
+- A React project already configured for CSR or SSR
+
+## Installation
+
+<Callout type="info" emoji="ℹ️">
+  <div>**Note:**</div>
+  <div>
+    Refer to the <Link href={"/docs/changelog"}>**Change Log**</Link> page for details on the latest version, including its features, upgrades, and fixes.
+  </div>
+</Callout>
+
+<Steps>
+### Install the Hooks Package
+
+Add the Unbxd React SDK Hooks package to your e-commerce project:
+
+```bash
+npm install @unbxd-ui/react-search-hooks
+```
+
+Or with Yarn:
+
+```bash
+yarn add @unbxd-ui/react-search-hooks
+```
+
+### Setting up the Wrapper
+
+The `UnbxdSearchWrapper` or `UnbxdSearchWrapperSSR` serves as the core integration point for connecting with Unbxd's backend. It manages state and ensures seamless communication between components.
+
+<Cards>
+  <Card icon={<ClientIcon />} title="UnbxdSearchWrapper" href="/docs/unbxdSearchWrapperCSR" style={{ marginTop: "10px", width: "fit-content" }} />
+  <Card icon={<ClientIcon />} title="UnbxdSearchWrapperSSR" href="/docs/unbxdSearchWrapperSSR" style={{ marginTop: "10px", width: "fit-content" }} />
+</Cards>
+
+```jsx
+// Sample for SSR
+import { UnbxdSearchWrapperSSR } from "@unbxd-ui/react-search-hooks";
+
+<UnbxdSearchWrapperSSR
+    siteKey="YOUR_SITE_KEY"
+    apiKey="YOUR_API_KEY"
+    defaultValues={{ ... }}
+    webUrlConfig={{ ... }}
+    apiUrlConfig={{ ... }}
+
+    onEvent={({type, message, value, state}) => {}}
+
+    setWebUrl={() => {}}
+    headers={{ ... }}
+>
+  {/* Your components */}
+</UnbxdSearchWrapperSSR>
+```
+
+```jsx
+// Sample for CSR
+import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+
+<UnbxdSearchWrapper
+    siteKey="YOUR_SITE_KEY"
+    apiKey="YOUR_API_KEY"
+    defaultValues={{ ... }}
+    webUrlConfig={{ ... }}
+    apiUrlConfig={{ ... }}
+    onEvent={({type, message, value, state}) => {}}
+    setWebUrl={() => {}}
+    headers={{ ... }}
+>
+  {/* Your components */}
+</UnbxdSearchWrapper>
+```
+
+### Use Hooks in Your Custom Components
+
+Leverage hooks to build custom components that seamlessly integrate with the Unbxd API:
+
+```jsx
+// Sample code
+import { useQuery, useProducts, usePagination } from '@unbxd-ui/react-search-hooks';
+
+function CustomSearchComponent() {
+  const { query, setQuery } = useQuery();
+  const { products } = useProducts();
+  const { goToNextPage, isLastPage } = usePagination();
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search for products..."
+      />
+      <ul>
+        {products.map((product, index) => (
+          <li key={index}>{product.name}</li>
+        ))}
+      </ul>
+      <button onClick={goToNextPage} disabled={isLastPage()}>
+        Next Page
+      </button>
+    </div>
+  );
+}
+
+export default CustomSearchComponent;
+```
+
+### Fully Customize Your UI
+
+Hooks allow maximum flexibility, enabling you to design every aspect of your e-commerce platform. Refer to our documentation for in-depth examples and best practices.
+
+</Steps>
+
+## Best Practices for Hooks
+
+Follow these practices to maximize the effectiveness of hooks for your e-commerce integration:
+
+- **Optimize Custom Components**: Use hooks to create dynamic, user-friendly features like search filters, product displays, and pagination.
+- **Efficient Data Fetching**: Leverage hooks to streamline API interactions and reduce unnecessary calls.
+- **Tailored User Experiences**: Customize components for personalized shopping journeys, including user-specific recommendations and localized content.
+- **Responsive Interactions**: Build fast, responsive components with hooks to ensure a seamless user experience.
+- **Documentation-Driven Development**: Refer to examples and advanced use cases in our documentation to avoid pitfalls and unlock the full potential of the SDK.

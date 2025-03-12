@@ -1,0 +1,257 @@
+import { Products, SortRadioButtons } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../../components/CSRWrapper";
+import Pills from "../../../components/Pills";
+import SortIcon from "../../../components/SortIcon";
+import HookIcon from "../../../components/icons/HookIcon";
+import ButtonIcon from "../../../components/icons/ButtonIcon";
+import DropdownIcon from "../../../components/icons/DropdownIcon";
+
+# SortRadioButtons
+
+## Overview
+
+The "SortRadioButtons" component on an e-commerce page allows users to rearrange products displayed on a search results or product listing page in a specific order.
+
+This feature helps users quickly find the most relevant or interesting products based on their needs and preferences. It enables users to easily identify products in a particular price range or newly added items, making it more convenient for them to find what they are looking for.
+
+E-commerce websites often have a default sort order when a user visits a category or search results page but also provide users with the option to change and adjust the sort order as desired.
+
+## Usage
+
+```js copy
+// importing component
+import { SortRadioButtons } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/sortRadioButtons.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/sortRadioButtons.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **SortRadioButtons** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+## Live Demo
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<div style={{marginBottom: "15px", display: "flex", alignItems: "center", justifyContent: "center"}}>
+				<SortRadioButtons
+					showLabel={true}
+					label="Sort as:"
+					options={[
+						{
+							value: "price desc",
+							label: "High to Low",
+						},
+						{
+							value: "price asc",
+							label: " Low to High",
+						},
+					]}
+					CustomComponent={SortIcon}
+				/>
+			</div>
+			<Products />
+		</CSRWrapper>
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+		```js copy {24-38}
+    	// code for the above example
+		import { UnbxdSearchWrapper } from "unbxd-ui/react-search-hooks";
+		import { SortRadioButtons, Products } from "@unbxd-ui/react-search-components";
+		
+		const SortIcon = ({ item }) => {
+			const options = {
+				desc: "https://imageUrl1.png",
+				asc: "https://imageUrl2.png"
+			}
+
+			const sortItem = Object.keys(options).filter((key: string) => {
+				return item && item.value?.toLowerCase().includes(key)
+			})[0]
+
+			return <div className="sort-option-item">
+				<img src={options[sortItem]} alt="Sort Icon" />
+				{item.label}
+			</div>
+		}
+
+		// rendering the product grid
+		<UnbxdSearchWrapper>
+			...
+			<SortRadioButtons
+				showLabel={true}
+				label="Sort as:"
+				options={[
+					{
+						value: "price desc",
+						label: "High to Low",
+					},
+					{
+						value: "price asc",
+						label: " Low to High",
+					},
+				]}
+				CustomComponent={SortIcon}
+			/>
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+    </div>
+
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### CustomComponent
+	<Pills pills={[{ type: "type", label: "component" }]} left={"240px"} />
+</div>
+
+- The component that will be rendered for each radio button. 
+- Default Value:
+
+```js
+const CustomComponent = (props) => {
+	const { item } = props;
+	return item;
+};
+```
+
+
+<div style={{ position: "relative" }}>
+	### showLabel
+	<Pills
+		pills={[
+			{ type: "required", label: "required" },
+			{ type: "type", label: "boolean" },
+		]}
+		left={"145px"}
+	/>
+</div>
+
+- A boolean value which indicates if the label must be shown or not.
+- Default Value: `true`.
+
+<div style={{ position: "relative" }}>
+	### label
+	<Pills pills={[{ type: "type", label: "string" }]} left={"80px"} />
+</div>
+
+- The text that must be shown as the label to the sorting component.
+- Default Value: `"Sort"`.
+
+
+<div style={{ position: "relative" }}>
+	### options
+	<Pills
+		pills={[
+			{ type: "required", label: "required" },
+			{ type: "type", label: "array" },
+		]}
+		left={"110px"}
+	/>
+</div>
+
+- The options that must be displayed as radio buttons.
+- Default Value:
+
+```js copy
+options={[
+    {
+        value: "price desc",
+        label: "Price High to Low",
+    },
+    {
+        value: "price asc",
+        label: " Price Low to High",
+    },
+]}
+```
+
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "sort-root",
+    label: "sort-label",
+    container: "sort-container",
+    radioItem: "radio-item",
+    inputBtn: "sort-button",
+    inputLabel: "sort-input-label",
+    selected: "selected",
+}}
+```
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useSorting</div>
+
+To use the Unbxd React Search SDK without the pre-built SortRadioButtons component, add the functionality to your custom component using the useSorting hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useSorting" href="/docs/useSorting" />
+</Cards>
+
+
+## Related Components
+
+<Cards>
+	<Card icon={<ButtonIcon />} title="Sort Buttons" href="/docs/sort/buttons" />
+	<Card icon={<DropdownIcon />} title="Sort Dropdown" href="/docs/sort/dropdown" />
+</Cards>

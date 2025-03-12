@@ -1,0 +1,276 @@
+import { LoadMorePagination, Products } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../../components/CSRWrapper";
+import LoadingGrid from "../../../components/LoadingGrid";
+import Pills from "../../../components/Pills";
+import Loader from "../../../components/Loader";
+import HookIcon from "../../../components/icons/HookIcon";
+import PaginationIcon from "../../../components/icons/PaginationIcon";
+import InfiniteIcon from "../../../components/icons/InfiniteIcon";
+
+# Load More Pagination
+
+## Overview
+
+In e-commerce, pagination refers to the process of dividing search results or product listings into multiple pages, which allows users to navigate through the pages of products. It is used to split large sets of products into smaller, more manageable chunks, which can improve the performance of the website and also user experience.
+
+Load More Pagination includes a “Load More” button, so users can load the next set of products at their own discretion. This can be beneficial for users that may want to control the amount of information they see at once and also, it can be helpful for the website to limit the amount of data loaded at once to improve the performance.
+
+## Usage
+
+```js copy
+// importing component
+import { LoadMorePagination } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/loadMorePagination.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/loadMorePagination.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **LoadMorePagination** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+<Callout type="info" emoji="ℹ️" >
+	<div>**Note:**</div>
+	<div>
+		The **LoadMorePagination** component must wrap around the **Products** component.
+		For an example of how this component should be rendered, refer to the code in the **Live Demo** section.
+		This setup ensures that the pre-loader is correctly positioned, enabling efficient and smooth functionality.
+	</div>
+</Callout>
+
+
+## Live Demo
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<LoadMorePagination LoaderComponent={Loader}>
+				<Products />
+			</LoadMorePagination>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {7-9}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { LoadMorePagination, Products } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<LoadMorePagination LoaderComponent={Loader}>
+				<Products />
+			</LoadMorePagination>
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### LoaderComponent
+	<Pills pills={[{ type: "type", label: "functional component" }]} left={"230px"} />
+</div>
+
+- A functional component that will be rendered as the pre-loader to render the previous set of products.
+- The `LoaderComponent` is highly customisable:
+	1. A bare basic component with just a loading text can be used. The following code is the default value of this component:
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<div className="loader">
+            Loading...
+        </div>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		const LoaderComponent = ({ className }) => {
+		    return (
+		        <div className={className}>
+		            Loading...
+		        </div>
+		    );
+		};
+		```
+	</div>
+</div>
+
+
+	2. You can also choose to add an animated gif or svg as your `LoaderComponent` as follows:
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<Loader className="loader" />
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		const LoaderComponent = = ({ className }) => {
+		    return <div className={className}>
+		        <img src={"/blueLoader.svg"} alt="loader" />
+		    </div>
+		};
+		```
+	</div>
+</div>
+
+
+	3. If you want to keep the product grid flow going, you can create a `LoaderComponent` which is similar to the following example.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<LoadingGrid className="product-container loader-container" />
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		const LoaderComponent = ({ className }) => {
+		    return (
+		        <div className={className}>
+		            {[1, 2, 3, 4].map(idx => (
+		                <div key={idx} className="product-card loader-container">
+		                    <div className="loading-image"></div>
+		                    <div className="loading-title"></div>
+		                    <div className="loading-price"></div>
+		                </div>
+		            ))}
+		        </div>
+		    );
+		};
+		```
+	</div>
+</div>
+
+
+<div style={{ position: "relative" }}>
+	### showLoading
+	<Pills
+		pills={[{ type: "type", label: "boolean" }]}
+		left={"175px"}
+	/>
+</div>
+
+- Determines if the `LoaderComponent` must be shown on clicking the "Load More" button. Can be used to indicate to the user that the next set of products are loading.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{ 
+	wrapper: "pagination-wrapper", // used for the entire pagination component
+	loader: "loader", // used for the pre-loader
+	buttonWrapper: "load-more-button-wrapper", // used for the load more button wrapper
+    button: "load-more-button" // used for the load more button
+}}
+```
+
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>usePagination</div>
+
+To use the Unbxd React Search SDK without the pre-built LoadMorePagination component, add the functionality to your custom component using the usePagination hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="usePagination" href="/docs/usePagination" />
+</Cards>
+
+
+## Related Components
+
+<Cards>
+	<Card icon={<PaginationIcon />} title="Fixed Pagination" href="/docs/pagination/fixedPagination" />
+	<Card icon={<InfiniteIcon />} title="Infinite Scroll Pagination" href="/docs/pagination/infiniteScrollPagination" />
+</Cards>

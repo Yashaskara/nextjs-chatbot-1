@@ -1,0 +1,174 @@
+import { Cards, Card, Callout } from "nextra/components";
+import Pills from "../../components/Pills";
+import PaginationIcon from "../../components/icons/PaginationIcon";
+import LoadingIcon from "../../components/icons/LoadingIcon";
+import InfiniteIcon from "../../components/icons/InfiniteIcon";
+
+# usePagination
+
+## Overview
+
+The usePagination hook provides a comprehensive interface for managing pagination within an e-commerce platform. It allows users to navigate through product pages, determine the current page, identifying the first and last pages, and loading the correct set of products for the current page.
+
+## Usage
+
+```js copy
+import { usePagination } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **usePagination** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4-15}
+import { usePagination } from "@unbxd-ui/react-search-hooks";
+
+const PaginationComponent = () => {
+    const {
+        numberOfProducts,
+        currentPage,
+        totalPages,
+        goToNextPage,
+        goToPreviousPage,
+        goToFirstPage,
+        goToLastPage,
+        isFirstPage,
+        isLastPage,
+    } = usePagination();
+
+    return (
+        <div className="pagination-controls">
+            <button onClick={goToFirstPage} disabled={isFirstPage()}>
+                First
+            </button>
+            <button onClick={goToPreviousPage} disabled={isFirstPage()}>
+                Previous
+            </button>
+            <span>Page {currentPage} of {totalPages}</span>
+            <button onClick={goToNextPage} disabled={isLastPage()}>
+                Next
+            </button>
+            <button onClick={goToLastPage} disabled={isLastPage()}>
+                Last
+            </button>
+            <p>Total Products: {numberOfProducts}</p>
+            <p>Products per Page: {pageSize}</p>
+        </div>
+    );
+};
+```
+
+## Hook API
+
+### Return Values
+<div style={{ position: "relative" }}>
+	#### numberOfProducts
+	<Pills pills={[{ type: "type", label: "number" }]} left={"205px"} />
+</div>
+
+- The total number of products available based on the current search query.
+
+
+<div style={{ position: "relative" }}>
+	#### currentPage
+	<Pills pills={[{ type: "type", label: "number" }]} left={"140px"} />
+</div>
+
+- The current page number in the pagination sequence.
+
+<div style={{ position: "relative" }}>
+	#### currentPageInUrl
+	<Pills pills={[{ type: "type", label: "number" }]} left={"180px"} />
+</div>
+
+- The page number displayed in the URL. This is calculated based on the products currently present in the viewport of the screen.
+
+
+<div style={{ position: "relative" }}>
+	#### totalPages
+	<Pills pills={[{ type: "type", label: "number" }]} left={"125px"} />
+</div>
+
+- The total number of pages calculated based on the numberOfProducts.
+
+
+<div style={{ position: "relative" }}>
+	#### goToPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"115px"} />
+</div>
+
+- This function allows navigation to a specific page by accepting the page number as an argument. When invoked, it redirects the user to the corresponding page.
+
+
+<div style={{ position: "relative" }}>
+	#### isFirstPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"130px"} />
+</div>
+- A function that returns true if the current page is the first page, otherwise false.
+
+
+<div style={{ position: "relative" }}>
+	#### isLastPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"130px"} />
+</div>
+- A function that returns true if the current page is the last page, otherwise false.
+
+
+<div style={{ position: "relative" }}>
+	#### goToFirstPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"155px"} />
+</div>
+
+- A function to navigate to the first page.
+
+<div style={{ position: "relative" }}>
+	#### goToLastPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"155px"} />
+</div>
+- A function to navigate to the last page.
+
+
+<div style={{ position: "relative" }}>
+	#### goToNextPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"160px"} />
+</div>
+- A function to navigate to the next page, if next page is present at all.
+
+
+<div style={{ position: "relative" }}>
+	#### goToPreviousPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"195px"} />
+</div>
+
+- A function to navigate to the previous page, if previous page is present at all.
+
+
+<div style={{ position: "relative" }}>
+	#### loadPreviousPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"190px"} />
+</div>
+
+- A function to load the previous page and add them to the current set of products. Used in case of "Load More Pagination" and "Infinite Scroll Pagination".
+
+
+<div style={{ position: "relative" }}>
+	#### loadNextPage
+	<Pills pills={[{ type: "type", label: "function" }]} left={"155px"} />
+</div>
+
+- A function to load the next page and add them to the current set of products. Used in case of "Load More Pagination" and "Infinite Scroll Pagination".
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<PaginationIcon />} title="FixedPagination" href="/docs/pagination/fixedPagination" />
+	<Card icon={<InfiniteIcon />} title="InfiniteScrollPagination" href="/docs/pagination/infiniteScrollPagination" />
+	<Card icon={<LoadingIcon />} title="LoadMorePagination" href="/docs/pagination/loadMorePagination" />
+</Cards>

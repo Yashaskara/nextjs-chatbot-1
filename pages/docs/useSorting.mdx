@@ -1,0 +1,107 @@
+import { Cards, Card, Callout } from "nextra/components";
+
+import Pills from "../../components/Pills";
+import ButtonIcon from "../../components/icons/ButtonIcon";
+import DropdownIcon from "../../components/icons/DropdownIcon";
+import RadioButtonIcon from "../../components/icons/RadioButtonIcon";
+
+
+# useSorting
+
+## Overview
+
+The `useSorting` hook provides a way to manage and update the sorting state in your application using the Unbxd ReactJS SDK.
+
+## Usage
+
+```js copy
+import { useSorting } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useSorting** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js {1, 4}
+import { useSorting } from "@unbxd-ui/react-search-hooks";
+
+const SortComponent = () => {
+	const { sort, setSort } = useSorting();
+
+	const options = [
+		{ label: "High to Low", value: "price desc" }, 
+		{ label: "Low to High", value: "price asc" }
+	]
+
+	const handleSortClick = (value) => {
+		setSort(value)
+	}
+
+	return <div className="sort-wrapper">
+		{options.map(option => {
+			return <div className={`sort-button ${option.value === sort ? "selected": ""}`} onClick={() => { handleSortClick(option.value) }}>
+				{option.label}
+			</div>
+		})}
+	</div>
+};
+```
+
+## Hook API
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### sort
+	<Pills pills={[{ type: "type", label: "string" }]} left={"65px"} />
+</div>
+
+-   The current sort value for the products.
+-   Default value - `""`.
+
+
+<div style={{ position: "relative" }}>
+	#### setSort
+	<Pills pills={[{ type: "type", label: "function" }]} left={"90px"} />
+</div>
+
+-   The function to change the sort value, which will be applied to the products.
+-   Code example -
+
+```js {3}
+const handleSortChange = (sortValue) => {
+	// Based on the passed value, the products will be sorted accordingly.
+	setSort(sortValue);
+};
+
+const renderSortComponent = () => {
+	return (
+		<div>
+			<select
+				value={sort}
+				onChange={(event) => {
+					handleSortChange(event.target.value);
+				}}>
+				<option value="">Default</option>
+				<option value="price_asc">Price: Low to High</option>
+				<option value="price_desc">Price: High to Low</option>
+			</select>
+		</div>
+	);
+};
+```
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<DropdownIcon />} title="SortDropdown" href="/docs/sort/dropdown" />
+	<Card icon={<ButtonIcon />} title="SortButtons" href="/docs/sort/buttons" />
+	<Card icon={<RadioButtonIcon />} title="SortRadioButtons" href="/docs/sort/radiobuttons" />
+</Cards>

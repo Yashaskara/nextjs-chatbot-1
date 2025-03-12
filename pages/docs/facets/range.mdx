@@ -1,0 +1,373 @@
+import { RangeFacet, Products, SelectedFacets } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../../components/CSRWrapper";
+import Pills from "../../../components/Pills";
+import HookIcon from "../../../components/icons/HookIcon";
+import CheckboxIcon from "../../../components/icons/CheckboxIcon";
+import RadioButtonIcon from "../../../components/icons/RadioButtonIcon";
+import CategoryTreeIcon from "../../../components/icons/CategoryTreeIcon";
+import ButtonIcon from "../../../components/icons/ButtonIcon";
+import SelectedHandIcon from "../../../components/icons/SelectedHandIcon";
+
+# Range Slider
+
+## Overview
+
+The **RangeFacet** component is an essential tool for filtering products based on a numerical range, such as price or ratings. 
+This interactive slider allows users to select a range between a defined minimum and maximum value, offering a visual and intuitive way to refine search results. 
+Ideal for use cases like price filters or rating ranges, this component enhances the shopping experience by providing users with precise control over their filter settings. 
+With customizable steps, default values, and change handling, this component can be easily tailored to meet the specific needs of your application.
+
+
+## Usage
+
+```js copy 
+// importing component
+import { RangeFacet } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/rangeFacet.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/rangeFacet.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **RangeFacet** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Live Demo
+
+### 1. Default Dropdown
+
+The facet component is rendered in the form of a dropdown.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 5px" }}>
+		<CSRWrapper apiKey="fb853e3332f2645fac9d71dc63e09ec1" siteKey="demo-unbxd700181503576558"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+			extraParams={{stats: "price"}}
+		>
+			<div style={{margin: "0 15px 10px", width: "auto"}}>
+				<SelectedFacets />
+			</div>
+			<div style={{display: "flex", gap: "20px", padding: "0 15px"}}>
+				<div>
+					<div style={{ display: "flex", alignItems: "center", marginBottom: "15px" }} >
+						<RangeFacet isMultiSlider={true} name="price" defaultOpen={false} renderAs="dropdown" showSelectedFacets={true} />
+					</div>
+					<Products styles={{ wrapper: "product-container" }} />
+				</div>
+			</div>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {8}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { RangeFacet, Products, SelectedFacets } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<SelectedFacets />
+			<RangeFacet isMultiSlider={true} name="price" defaultOpen={false} renderAs="dropdown" showSelectedFacets={true} />
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+### 2. Default Accordion
+
+The facet component is rendered in the form of a accordion.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 5px" }}>
+		<CSRWrapper apiKey="bdd920f4d3e81b8a52f547047fcaaf66" siteKey="ss-unbxd-Wakefit-Prod32951646727583"
+			defaultValues={{
+				pageSize: 4,
+				view: "TwoGrid"
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+			extraParams={{stats: "price"}}
+		>
+			<div style={{margin: "0 15px 10px", width: "auto"}}>
+				<SelectedFacets />
+			</div>
+			<div style={{display: "flex", gap: "20px", margin: "0 15px"}}>
+				<div style={{width: "35%", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", height: "fit-content"}}>
+					<RangeFacet isMultiSlider={true} name="price" defaultOpen={false} renderAs="accordion" showSelectedFacets={true} />
+				</div>
+				<div style={{width: "calc(65% - 20px)"}}>
+					<Products styles={{ wrapper: "product-container" }} />
+				</div>
+			</div>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {8}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { RangeFacet, Products, SelectedFacets } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<SelectedFacets />
+			<RangeFacet isMultiSlider={true} name="price" defaultOpen={false} renderAs="accordion" showSelectedFacets={true} />
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### name
+	<Pills pills={[{ type: "type", label: "string" }]} left={"90px"} />
+</div>
+
+- The name of the facet in the feed for which you want to display the component.
+
+
+<div style={{ position: "relative" }}>
+	### renderAs
+	<Pills pills={[{ type: "type", label: "string" }]} left={"130px"} />
+</div>
+
+- If you want to show the facet as a dropdown or accordion.
+- Values: `accordion` OR `dropdown`.
+- Default Value: `accordion`.
+
+<div style={{ position: "relative" }}>
+	### isCollapsible
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"170px"} />
+</div>
+
+- Controls whether the facet component can be expanded or collapsed. If disabled, the component will remain open, and users will not be able to collapse it by clicking.
+- This is only functional when the facet is rendered as an `accordion`.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### defaultOpen
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"165px"} />
+</div>
+
+- This setting determines whether the facet component is initially collapsed or open by default.
+- This is only functional when the facet is rendered as an `accordion` and `isCollapsible` is set to true.
+- Default Value: `true`.
+
+<Callout type="info">
+	<div>**Note**:</div>
+	<div>`defaultOpen` and `isCollapsible` works hand in hand, i.e. only if isCollapsible is `true`, `isDefaultOpen` would work.</div>
+</Callout>
+
+
+<div style={{ position: "relative" }}>
+	### showInputLabels
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"215px"} />
+</div>
+
+- Enables or disables the label displaying the minimum and maximum values on a range slider.
+- Default Value: `true`
+
+
+<div style={{ position: "relative" }}>
+	### showSelectedValues
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"255px"} />
+</div>
+
+- Controls the visibility of the selected values over the thumb of the slider based on this flag.
+- Default Value: `true`
+
+
+<div style={{ position: "relative" }}>
+	### min
+	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+</div>
+
+- If stats is not provided in the extra parameters, this value will be used as the minimum value for the slider.
+- Default Value: 0
+
+<div style={{ position: "relative" }}>
+	### max
+	<Pills pills={[{ type: "type", label: "number" }]} left={"80px"} />
+</div>
+
+- If stats is not provided in the extra parameters, this value will be used as the maxmimum value for the slider.
+- Default Value: 0
+
+<div style={{ position: "relative" }}>
+	### showInputBoxes
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"210px"} />
+</div>
+
+- Controls the visibility of the input boxes.
+- Default Value: true
+
+<div style={{ position: "relative" }}>
+	### isMultiSlider
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"165px"} />
+</div>
+
+- Determines whether the slider to be rendered will be a single slider or a multi-slider.
+- Default Value: true
+
+<div style={{ position: "relative" }}>
+	### step
+	<Pills pills={[{ type: "type", label: "number" }]} left={"80px"} />
+</div>
+
+- By setting a number for this configuration, you define the step increment for the slider. When the user adjusts the slider, the value will change in increments based on this specified step.
+- Default Value: `1`
+
+<div style={{ position: "relative" }}>
+	### showSelectedFacets
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"255px"} />
+</div>
+
+- Specifies whether the selected facets for a particular facet name should be displayed within the facets component.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### ActivatorComponent
+	<Pills pills={[{ type: "type", label: "functional component" }]} left={"250px"} />
+</div>
+
+- The component that will be used as the facets component activator. Clicking this will show/hide the facet values. 
+- Default Value:
+
+```js copy
+const ActivatorComponent = ({ selected, styles }: { selected?: any, styles: any }) => {
+	return <div className={styles?.activatorWrapper || defaultSortDropdownProps.styles?.activatorWrapper}>
+		<div className={styles?.activatorText || defaultSortDropdownProps.styles?.activatorText}>
+			{typeof selected == "object" ? selected.label : "Select"}
+		</div>
+		<div className={styles?.activatorIcon || defaultSortDropdownProps.styles?.activatorIcon}>
+			&#8964;
+		</div>
+	</div>
+}
+```
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	// There is no styles in the component as of now
+}}
+```
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useFacets</div>
+
+To use the Unbxd ReactJS SDK without the pre-built `FacetsWithButton` component, add the functionality to your custom component using the useFacets hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useFacets" href="/docs/useFacets" />
+</Cards>
+
+## Related Components
+
+<Cards>
+	<Card icon={<ButtonIcon />} title="Button Facet" href="/docs/facets/buttons" />
+	<Card icon={<CheckboxIcon />} title="Checkbox Facet" href="/docs/facets/checkbox" />
+	<Card icon={<RadioButtonIcon />} title="Radio Button Facet" href="/docs/facets/radio" />
+	<Card icon={<CategoryTreeIcon />} title="Multilevel Facet" href="/docs/facets/multilevel" />
+	<Card icon={<SelectedHandIcon />} title="Selected Facets" href="/docs/facets/selected-facets" />
+</Cards>

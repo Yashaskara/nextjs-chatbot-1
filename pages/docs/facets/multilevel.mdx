@@ -1,0 +1,454 @@
+import { Breadcrumb, MultilevelFacet, Products, SelectedFacets } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../../components/CSRWrapper";
+import Pills from "../../../components/Pills";
+import HookIcon from "../../../components/icons/HookIcon";
+import CheckboxIcon from "../../../components/icons/CheckboxIcon";
+import RadioButtonIcon from "../../../components/icons/RadioButtonIcon";
+import ButtonIcon from "../../../components/icons/ButtonIcon";
+import RangeSliderIcon from "../../../components/icons/RangeSliderIcon";
+import SelectedHandIcon from "../../../components/icons/SelectedHandIcon";
+import BreadcrumbIcon from "../../../components/icons/BreadcrumbIcon";
+
+
+# Multilevel Facet
+
+## Overview
+
+The **MultilevelFacet** component provides a dynamic way to display and navigate through product categories on an e-commerce website. 
+Whether you need a simple list of categories or a more complex hierarchical tree structure, this component is versatile enough to handle both.
+It allows users to easily drill down into specific categories, making it simpler for them to find the products they are looking for. 
+With features like expandable categories, custom selection handling, and default expanded states, this component is a powerful tool for organizing and presenting your product catalog.
+
+## Usage
+
+```js copy 
+// importing component
+import { MultilevelFacet } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/multilevelFacet.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/multilevelFacet.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **MultilevelFacet** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Live Demo
+
+### 1. Multilevel Facet As Dropdown
+
+The facet component is rendered in the form of a dropdown.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="bdd920f4d3e81b8a52f547047fcaaf66" siteKey="ss-unbxd-Wakefit-Prod32951646727583"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<div style={{margin: "0 0 15px", width: "auto"}}>
+				<SelectedFacets />
+			</div>
+			<div style={{display: "flex", gap: "20px"}}>
+				<div style={{width: "100%"}}>
+					<div style={{margin: "0 0 15px 0"}}>
+						<Breadcrumb name="categoryPath" />
+					</div>
+					<div style={{ display: "flex", alignItems: "center", marginBottom: "15px" }} >
+						<MultilevelFacet 
+							name="categoryPath" 
+							showAllParents={true} 
+							defaultOpen={false} 
+							renderAs="dropdown" 
+							styles={{ 
+								root: "facets-root",
+								header: "facets-header",
+								displayName: "facets-displayName",
+								icon: "facets-icon",
+								body: "facets-body",
+								valueWrapper: "facet-item-wrapper",
+								selected: "selected",
+								categoryName: "name",
+								categoryCount: "count"
+							}} />
+					</div>
+					<Products styles={{ wrapper: "product-container" }} />
+				</div>
+			</div>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {9}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Breadcrumb, MultilevelFacet, Products, SelectedFacets } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<SelectedFacets />
+			<Breadcrumb name="categoryPath" />
+			<MultilevelFacet name="categoryPath" showAllParents={true} defaultOpen={false} renderAs="dropdown" />
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+### 2. Multilevel Facet As Accordion
+
+The facet component is rendered in the form of a accordion.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="bdd920f4d3e81b8a52f547047fcaaf66" siteKey="ss-unbxd-Wakefit-Prod32951646727583"
+			defaultValues={{
+				pageSize: 4,
+				view: "TwoGrid"
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<div style={{margin: "0 0 15px", width: "auto"}}>
+				<SelectedFacets />
+			</div>
+			<div style={{margin: "0 0 15px"}}>
+				<Breadcrumb name="categoryPath" />
+			</div>
+			<div style={{display: "flex", gap: "20px"}}>
+				<div style={{width: "35%", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", height: "fit-content"}}>
+					<MultilevelFacet 
+						name="categoryPath" 
+						showAllParents={true} 
+						defaultOpen={true} 
+						renderAs="accordion" 
+						styles={{ 
+							root: "facets-root",
+							header: "facets-header",
+							displayName: "facets-displayName",
+							icon: "facets-icon",
+							body: "facets-body",
+							valueWrapper: "facet-item-wrapper",
+							selected: "selected",
+							categoryName: "name",
+							categoryCount: "count"
+						}} 
+					/>
+				</div>
+				<div style={{width: "calc(65% - 20px)"}}>
+					<Products styles={{ wrapper: "product-container" }} />
+				</div>
+			</div>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {9-21}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Breadcrumb, MultilevelFacet, Products, SelectedFacets } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<SelectedFacets />
+			<Breadcrumb name="categoryPath" />
+			<MultilevelFacet 
+				name="categoryPath" 
+				showAllParents={true} 
+				defaultOpen={true} 
+				renderAs="accordion" 
+				styles={{ 
+					root: "facets-root",
+					header: "facets-header",
+					displayName: "facets-displayName",
+					icon: "facets-icon",
+					body: "facets-body",
+				}} 
+			/>
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### name
+	<Pills pills={[{ type: "type", label: "string" }]} left={"90px"} />
+</div>
+
+- The name of the facet in the feed for which you want to display the component.
+
+
+<div style={{ position: "relative" }}>
+	### showAllParents
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"195px"} />
+</div>
+
+- Determines if all the parent levels of the selected category value must be shown. If it is true, all parent level values are shown, else only the immediate parent level value will be shown.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### renderAs
+	<Pills pills={[{ type: "type", label: "string" }]} left={"130px"} />
+</div>
+
+- The way in which the component must be displayed.
+- Values: `accordion` OR `dropdown`.
+- Default Value: `accordion`.
+
+
+<div style={{ position: "relative" }}>
+	### defaultOpen
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"165px"} />
+</div>
+
+- Determines if the component must view all the options by default or not.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### isCollapsible
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"170px"} />
+</div>
+
+- Determines if the component must view all the facet values by default or not.
+- Default Value: `true`.
+
+<Callout type="info">
+	<div>**Note**:</div>
+	<div>`defaultOpen` and `isCollapsible` works hand in hand, i.e. only if isCollapsible is `true`, `isDefaultOpen` would work.</div>
+</Callout>
+
+<div style={{ position: "relative" }}>
+	### clearBtn
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"120px"} />
+</div>
+
+- Specifies whether a button should be provided to clear all applied facets at once.
+- Default Value: `true`.
+
+<div style={{ position: "relative" }}>
+	### clearBtnLabel
+	<Pills pills={[{ type: "type", label: "string" }]} left={"180px"} />
+</div>
+
+- he text to be displayed on the clearAll button.
+- Default Value: `Clear`.
+
+<div style={{ position: "relative" }}>
+	### showSelectedFacets
+	<Pills pills={[{ type: "type", label: "string" }]} left={"255px"} />
+</div>
+
+- Specifies whether the selected facets for a particular facet name should be displayed within the facets component.
+- Default Value: `true`.
+
+<div style={{ position: "relative" }}>
+	### viewMoreLimit
+	<Pills pills={[{ type: "type", label: "number" }]} left={"190px"} />
+</div>
+
+- Specifies the number of facet values to display, hiding any additional values beyond this limit.
+- Default Value: `0`.
+
+<div style={{ position: "relative" }}>
+	### ViewMoreComponent
+	<Pills pills={[{ type: "type", label: "functional component" }]} left={"265px"} />
+</div>
+
+- A custom component that has to return a clickable element to display all facet values beyond the set limit.
+- This is only functional if `viewMoreLimit` is set to a value greater than 0.
+- Default Value:
+
+```js copy
+const ViewMoreComponent = ({ showRemainingNumber, remainingNumber, styles }) => {
+	return <div className={styles?.showMore}>{showRemainingNumber ? `+${remainingNumber} more`: `+ show all`}</div>;
+}
+```
+
+<div style={{ position: "relative" }}>
+	### ViewLessComponent
+	<Pills pills={[{ type: "type", label: "functional component" }]} left={"260px"} />
+</div>
+
+- A custom component that has to return a clickable element, which when clicked will render only the `viewMoreLimit` number of facet values.
+- Default Value:
+
+```js copy
+const ViewLessComponent = ({ styles }) => {
+	return <div className={styles?.showLess}>-show less</div>;
+};
+```
+
+<div style={{ position: "relative" }}>
+	### showRemainingNumber
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"285px"} />
+</div>
+
+- This configuration is used by the ViewMoreComponent to display the remaining number in the 'view more' text, e.g., '+25 more'.
+- If this is not enabled, only simple text will be shown, e.g., 'view more'.
+
+<div style={{ position: "relative" }}>
+	### IconComponent
+	<Pills pills={[{ type: "type", label: "functional component" }]} left={"200px"} />
+</div>
+
+- The `IconComponent` prop allows you to pass a custom icon component that will be displayed alongside the facet name in the facet header. This provides a way to visually enhance the facet presentation, making it more intuitive and aligned with your application's design.
+- Default Value:
+
+```js copy
+const IconComponent = ({ styles }) => {
+	return <div className={styles?.icon}>&#8964;</div>;
+};
+```
+
+<div style={{ position: "relative" }}>
+	### ActivatorComponent
+	<Pills pills={[{ type: "type", label: "functional component" }]} left={"250px"} />
+</div>
+
+- The component that will be used as the facets component activator. Clicking this will show/hide the facet values. 
+- Default Value:
+
+```js copy
+const ActivatorComponent = ({ selected, styles }: { selected?: any, styles: any }) => {
+	return <div className={styles?.activatorWrapper || defaultSortDropdownProps.styles?.activatorWrapper}>
+		<div className={styles?.activatorText || defaultSortDropdownProps.styles?.activatorText}>
+			{typeof selected == "object" ? selected.label : "Select"}
+		</div>
+		<div className={styles?.activatorIcon || defaultSortDropdownProps.styles?.activatorIcon}>
+			&#8964;
+		</div>
+	</div>
+}
+```
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	root: "facets-root", // used for the facet component wrapper
+	header: "facets-header", // used for the facet header
+	displayName: "facets-displayName", // used for the facet name in the header
+	icon: "facets-icon", // used for the toggle collapsible icon
+	body: "facets-body", // used for the facet values wrapper
+}}
+```
+
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useFacets</div>
+
+To use the Unbxd ReactJS SDK without the pre-built `FacetsWithButton` component, add the functionality to your custom component using the useFacets hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useFacets" href="/docs/useFacets" />
+</Cards>
+
+## Related Components
+
+<Cards>
+	<Card icon={<ButtonIcon />} title="Button Facet" href="/docs/facets/buttons" />
+	<Card icon={<CheckboxIcon />} title="Checkbox Facet" href="/docs/facets/checkbox" />
+	<Card icon={<RadioButtonIcon />} title="Radio Button Facet" href="/docs/facets/radio" />
+	<Card icon={<RangeSliderIcon />} title="Range Facet" href="/docs/facets/range" />
+	<Card icon={<SelectedHandIcon />} title="Selected Facets" href="/docs/facets/selected-facets" />
+	<Card icon={<BreadcrumbIcon />} title="Breadcrumb" href="/docs/breadcrumb" />
+
+</Cards>

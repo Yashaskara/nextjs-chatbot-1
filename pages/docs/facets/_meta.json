@@ -1,0 +1,8 @@
+{
+    "buttons": "Button Facet",
+    "checkbox": "Checkbox Facet",
+    "radio": "Radio Button Facet",
+    "multilevel": "Multilevel Facet",
+    "range": "Range Facet",
+    "selected-facets": "Selected Facets"
+}

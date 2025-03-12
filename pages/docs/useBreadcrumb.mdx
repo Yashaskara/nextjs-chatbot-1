@@ -1,0 +1,92 @@
+import { Cards, Card, Callout } from "nextra/components";
+import Pills from "../../components/Pills";
+import BreadcrumbIcon from "../../components/icons/BreadcrumbIcon";
+
+# useBreadcrumb
+
+## Overview
+The useBreadcrumb hook is designed to manage and retrieve breadcrumb navigation data for an e-commerce platform. Breadcrumbs provide a navigational aid that allows users to keep track of their locations within search results, especially when filtering through categories, subcategories, or other hierarchical structures. This hook extracts the breadcrumb trail from the search results, which helps users understand the path they have taken through the product hierarchy.
+
+## Usage
+
+```js copy
+import { useBreadcrumb } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useBreadcrumb** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useBreadcrumb } from "@unbxd-ui/react-search-hooks";
+
+const BreadcrumbComponent = ({ name }) => {
+    const { breadcrumbs, setBreadcrumb } = useBreadcrumb({ name: "categoryPath" });
+
+    const handleBreadcrumbClick = (level) => {
+        setBreadcrumb(name, breadcrumbs.slice(0, level + 1))
+    }
+
+    return (
+        <div className="breadcrumb-trail">
+            {breadcrumbs.length > 0 ? (
+                <ul>
+                    {breadcrumbs.map((breadcrumb, index) => (
+                        <li key={index} onClick={() => { handleBreadcrumbClick(index) }}>
+                            {breadcrumb}
+                        </li>
+                    ))}
+                </ul>
+            ): (
+                <p>No breadcrumbs available</p>
+            )}
+        </div>
+    );
+};
+```
+
+## Hook API
+
+### Parameters
+
+<div style={{ position: "relative" }}>
+	#### name
+	<Pills pills={[{ type: "type", label: "string" }]} left={"80px"} />
+</div>
+
+- The name of the multilevel filter for which you want to show the breadcrumb.
+
+
+### Return Values
+<div style={{ position: "relative" }}>
+	#### breadcrumbs
+	<Pills pills={[{ type: "type", label: "string array" }]} left={"150px"} />
+</div>
+
+- An array of breadcrumb strings, each representing a level in the navigation hierarchy. The array is ordered from the topmost level to the most specific category. If no breadcrumbs are available, an empty array is returned.
+- Example output:
+
+```js copy
+["Home", "Electronics", "Laptops"]
+```
+
+
+<div style={{ position: "relative" }}>
+	#### setBreadcrumb
+	<Pills pills={[{ type: "type", label: "function" }]} left={"170px"} />
+</div>
+
+- A function that can be called on clicking a breadcrumb. It in turn calls the `onEvent` function wherein the type is `"BREADCRUMB_CLICKED"`.
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<BreadcrumbIcon />} title="Breadcrumb" href="/docs/breadcrumb" />
+</Cards>

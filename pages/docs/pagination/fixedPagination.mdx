@@ -1,0 +1,537 @@
+import { FixedPagination, Products } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../../components/CSRWrapper";
+import Pills from "../../../components/Pills";
+import HookIcon from "../../../components/icons/HookIcon";
+import InfiniteIcon from "../../../components/icons/InfiniteIcon";
+import LoadingIcon from "../../../components/icons/LoadingIcon";
+import ProductsIcon from "../../../components/icons/ProductsIcon";
+
+# Fixed Pagination
+
+## Overview
+
+In e-commerce, pagination refers to the process of dividing search results or product listings into multiple pages, which allows users to navigate through the pages of products. It is used to split large sets of products into smaller, more manageable chunks, which can improve the performance of the website and also user experience.
+
+"Fixed Pagination" is the most common and allows users to navigate through the pages of products by clicking on page numbers or by clicking on the next and previous buttons or by clicking the first page and last page buttons. The page numbers and buttons are usually displayed at the bottom of the search results or product listings.
+
+## Usage
+
+```js copy 
+// importing component
+import { FixedPagination } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/fixedPagination.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/fixedPagination.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **FixedPagination** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Live Demo
+
+### 1. Default As Buttons
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products styles={{ wrapper: "product-container one", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container.one")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="BUTTONS"
+				pageLimit={5}
+			/>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {8-14}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { FixedPagination } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<Products styles={{ wrapper: "product-container", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="BUTTONS"
+				pageLimit={5}
+			/>
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+### 2. Pagination with just next and previous page buttons
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products styles={{ wrapper: "product-container two", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container.two")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="BUTTONS"
+				pageLimit={0}
+				showFirstBtn={false}
+				showLastBtn={false}
+				prevBtnContent={"Prev"}
+				nextBtnContent={"Next"}
+			/>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {8-18}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { FixedPagination, Products } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<Products styles={{ wrapper: "product-container", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="BUTTONS"
+				pageLimit={0}
+				showFirstBtn={false}
+				showLastBtn={false}
+				prevBtnContent={"Prev"}
+				nextBtnContent={"Next"}
+			/>
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+### 3. Default As Dropdown 
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products styles={{ wrapper: "product-container three", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container.three")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="DROPDOWN"
+				pageLimit={5}
+			/>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {8-14}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { FixedPagination, Products } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<Products styles={{ wrapper: "product-container", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="DROPDOWN"
+				pageLimit={5}
+			/>
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+### 4. Default As Input Box
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products styles={{ wrapper: "product-container four", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container.four")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="INPUT"
+				pageLimit={5}
+			/>
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {8-14}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { FixedPagination, Products } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<Products styles={{ wrapper: "product-container", loader: "loader" }} />
+			<FixedPagination
+				onPaginate={() => {
+					document.querySelector(".product-container")?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				}}
+				viewAs="INPUT"
+				pageLimit={5}
+			/>
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### onPaginate
+	<Pills pills={[{ type: "type", label: "function" }]} left={"150px"} />
+</div>
+
+- A function that is called whenever page is changed.
+- Default Value: 
+
+```js copy
+const onPaginate = () => {};
+```
+
+
+<div style={{ position: "relative" }}>
+	### showFirstBtn
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"170px"} />
+</div>
+
+- Determines if the button to go to first page must be shown or not.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### firstBtnContent
+	<Pills pills={[{ type: "type", label: "string OR functional component" }]} left={"195px"} />
+</div>
+
+- The text or component that will be rendered in the first page button.
+- Default Value:
+
+```js copy
+const firstBtnContent = () => <div>&lt;&lt;</div>;
+```
+
+<div style={{ position: "relative" }}>
+	### showLastBtn
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"170px"} />
+</div>
+
+- Determines if the button to go to last page must be shown or not.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### lastBtnContent
+	<Pills pills={[{ type: "type", label: "string OR functional component" }]} left={"195px"} />
+</div>
+
+- The text or component that will be rendered in the last page button.
+- Default Value:
+
+```js copy
+const lastBtnContent = () => <div>&gt;&gt;</div>;
+```
+
+
+<div style={{ position: "relative" }}>
+	### showPrevBtn
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"170px"} />
+</div>
+
+- Determines if the button to go to previous page must be shown or not.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### prevBtnContent
+	<Pills pills={[{ type: "type", label: "string OR functional component" }]} left={"200px"} />
+</div>
+
+- The text or component that will be rendered in the previous page button.
+- Default Value:
+
+```js copy
+const prevBtnContent = () => <div>&lt;</div>;
+```
+
+
+<div style={{ position: "relative" }}>
+	### showNextBtn
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"175px"} />
+</div>
+
+- Determines if the button to go to next page must be shown or not.
+- Default Value: `true`.
+
+
+<div style={{ position: "relative" }}>
+	### nextBtnContent
+	<Pills pills={[{ type: "type", label: "string OR functional component" }]} left={"200px"} />
+</div>
+
+- The text or component that will be rendered in the next page button.
+- Default Value:
+
+```js copy
+const nextBtnContent = () => <div>&gt;</div>;
+```
+
+
+<div style={{ position: "relative" }}>
+	### viewAs
+	<Pills pills={[{ type: "type", label: "string" }]} left={"110px"} />
+</div>
+
+- Determines how the page numbers must be shown.
+- Allowed Values: 
+	- `"BUTTONS"` - The page numbers will be shown in the form of buttons.
+	- `"DROPDOWN"` - The page numbers will be shown in the form of a dropdown.
+	- `"INPUT"` - User can navigate to the page number by entering the page number in an input box and clicking the 'Go' button.
+- Default Value: `"BUTTONS"`.
+
+
+<div style={{ position: "relative" }}>
+	### pageLimit
+	<Pills pills={[{ type: "type", label: "number OR null" }]} left={"135px"} />
+</div>
+
+- Determines the number of pages that must be shown.
+- In the case where `FixedPagination` is rendered as `"BUTTONS"`, this value is **REQUIRED**. 
+- In the case where `FixedPagination` is rendered as `"DROPDOWN"`, this value is not mandatory. 
+If this value is present, it is considered and only those many values will be shown in the dropdown, else all the page numbers will be shown.
+- Default Value: `5`.
+
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "pagination-wrapper", // used for the component wrapper
+    firstPageBtn: "first-page-btn", // used for the first page button component
+    prevPageBtn: "prev-page-btn", // used for the previous page button component
+    nextPageBtn: "next-page-btn", // used for the next page button component
+    lastPageBtn: "last-page-btn", // used for the last page button component
+    buttons: {
+        wrapper: "pagination-buttons-wrapper", // used for the wrapper for page number buttons wrapper
+        pageBtn: "page-btn", // used for each page number button component
+        currentPageBtn: "current-page-btn", // used for the current page number button component
+    },
+    dropdown: {
+        wrapper: "pagination-dropdown", // used for the pages dropdown wrapper component
+        label: "label", // used for the label for the select dropdown component
+        select: "select", // used for the select dropdown component
+    },
+    input: {
+        wrapper: "pagination-input", // used for the wrapper of the input element
+        input: "input", // used for the input element
+        button: "button", // used for the 'Go' button
+    }
+}}
+```
+
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>usePagination</div>
+
+To use the Unbxd React Search SDK without the pre-built FixedPagination component, add the functionality to your custom component using the usePagination hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="usePagination" href="/docs/usePagination" />
+</Cards>
+
+
+## Related Components
+
+<Cards>
+	<Card icon={<InfiniteIcon />} title="Infinite Scroll Pagination" href="/docs/pagination/infiniteScrollPagination" />
+	<Card icon={<LoadingIcon />} title="Load More Pagination" href="/docs/pagination/loadMorePagination" />
+</Cards>

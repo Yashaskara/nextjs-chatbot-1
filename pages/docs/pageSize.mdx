@@ -1,0 +1,164 @@
+import { PageSize, Products } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../components/CSRWrapper";
+import Pills from "../../components/Pills";
+import HookIcon from "../../components/icons/HookIcon";
+
+# PageSize
+
+## Overview
+
+In e-commerce, “page size” refers to the number of products that are displayed on a single page of search results or product listings. It allows users to control how many items they see at a time, by giving them the option to choose from different page sizes such as 10, 20, 50 or 100 items per page.
+
+The purpose of this feature is to help users quickly find and view the products they are interested in, without having to scroll through an excessive number of items. It can also improve the overall user experience by making it easier to scan and compare products. Additionally, for some e-commerce website, the page size concept can help to improve site performance and loading time.
+
+Some e-commerce websites also provide pagination options so that users can navigate through the pages of search results or product listings by clicking on page numbers or next/previous buttons.
+
+## Usage
+
+```js copy
+// importing component
+import { PageSize } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/pageSize.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/pageSize.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **PageSize** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Live Demo
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<div style={{marginBottom: "15px", display: "flex", alignItems: "center", justifyContent: "center"}}>
+				<PageSize text={"Products per page:"} options={[3, 6, 9]} />
+			</div>
+			<Products />
+		</CSRWrapper>
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+		```js copy {7}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { PageSize, Products } from "@unbxd-ui/react-search-components"
+
+		<UnbxdSearchWrapper>
+			...
+			<PageSize text={"Products per page:"} options={[3, 6, 9]} />
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+    </div>
+
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### label
+	<Pills pills={[{ type: "type", label: "string" }]} left={"85px"} />
+</div>
+
+- A string value which will be used as the label for the select element. 
+- Default Value: `"Products per page:"`.
+
+<div style={{ position: "relative" }}>
+	### options
+	<Pills
+		pills={[
+			{ type: "required", label: "required" },
+			{ type: "type", label: "array" },
+		]}
+		left={"110px"}
+	/>
+</div>
+
+- The options that must be displayed in the dropdown. Each value must be a number, and generally the values of multiples of the first option.
+- Default Value: 
+
+```js copy
+options={[12, 24, 36, 48, 60]}
+```
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "page-size-container",
+    label: "label",
+    selectWrapper: "size-select-wrapper",
+    select: "size-select",
+    body: "size-body",
+    activatorWrapper: "size-activator",
+    activatorText: "size-text",
+    activatorIcon: "size-activator-icon",
+    option: "option",
+    selectedOption: "selected",
+}}
+```
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>usePageSize</div>
+
+To use the Unbxd React Search SDK without the pre-built PageSize component, add the functionality to your custom component using the usePageSize hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="usePageSize" href="/docs/usePageSize" />
+</Cards>

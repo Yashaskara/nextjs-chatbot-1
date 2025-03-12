@@ -1,0 +1,601 @@
+import { SearchBox, Products, Summary, FixedPagination } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../components/CSRWrapper";
+import Pills from "../../components/Pills";
+import HookIcon from "../../components/icons/HookIcon";
+
+# SearchBox
+
+## Overview
+
+The "Search Box" in an e-commerce page is a user interface element that allows users to quickly and easily search for specific products within an online store's catalog.
+
+## Usage
+
+```js copy
+// importing component
+import { SearchBox } from "@unbxd-ui/react-search-components";
+
+// import styles for the component
+import "@unbxd-ui/react-search-components/styles/searchbox.css";
+import "@unbxd-ui/react-search-components/styles/autosuggest.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/searchbox.css");
+require.resolve("@unbxd-ui/react-search-components/styles/autosuggest.css");
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **SearchBox** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search
+		functionality work properly.
+	</div>
+</Callout>
+
+## Live Demo
+
+### 1. Searchbox without autosuggest
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906" 
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				category: {
+					addToUrl: false
+				},
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}
+			}} 
+		>
+			<div style={{ margin: "0 auto 20px", width: "60%" }}>
+				<SearchBox showSubmitButton={true} submitOnEnter={true} debounce={true} delay={2000} showClear={true} />
+			</div>
+			<Summary />
+			<Products />
+			<FixedPagination />
+		</CSRWrapper>
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+    	```js copy {7}
+    	// code for the above example
+    	import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+    	import { SearchBox, Products, Summary, FixedPagination } from "@unbxd-ui/react-search-components";
+
+    	<UnbxdSearchWrapper>
+    		...
+    		<SearchBox showSubmitButton={true} submitOnEnter={true} debounce={true} delay={2000} />
+    		<Summary />
+    		<Products />
+    		<FixedPagination />
+    		...
+    	</UnbxdSearchWrapper>
+    	```
+    </div>
+
+</div>
+
+### 2. Searchbox with autosuggest
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906" 
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				category: {
+					addToUrl: false
+				},
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}
+			}} 
+		>
+			<div style={{ margin: "0 auto 20px", width: "90%" }}>
+				<SearchBox showSubmitButton={true} submitOnEnter={true} debounce={true} delay={500} showClear={true} autosuggest={{ enabled: true, inFields: {enabled: true, count: 2, noOfInfields: 3, filterField: "category"} }} />
+			</div>
+			<Summary />
+			<Products />
+			<FixedPagination />
+		</CSRWrapper>
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+    	```js copy {7}
+    	// code for the above example
+    	import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+    	import { SearchBox, Products, Summary, FixedPagination } from "@unbxd-ui/react-search-components";
+
+    	<UnbxdSearchWrapper>
+    		...
+    		<SearchBox showSubmitButton={true} submitOnEnter={true} debounce={true} delay={2000} showClear={true} autosuggest={{ enabled: true }} />
+    		<Summary />
+    		<Products />
+    		<FixedPagination />
+    		...
+    	</UnbxdSearchWrapper>
+    	```
+    </div>
+
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### placeholder
+	<Pills pills={[{ type: "type", label: "string" }]} left={"155px"} />
+</div>
+
+- The placeholder for the search input element.
+- Default Value: `"Enter the search query.."`.
+
+<div style={{ position: "relative" }}>
+	### showLabel
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"145px"} />
+</div>
+
+- Boolean value which indicates if the label for the search input element must be shown or not.
+- Default Value: `false`.
+
+<div style={{ position: "relative" }}>
+	### label
+	<Pills pills={[{ type: "type", label: "string" }]} left={"80px"} />
+</div>
+
+- The text must be shown as the label for the search input element.
+- Default Value: `""`.
+
+<div style={{ position: "relative" }}>
+	### submitOnEnter
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"190px"} />
+</div>
+
+- Boolean value which indicates if products for entered query must be fetched on pressing the "Enter" key.
+- Default Value: `false`.
+
+<div style={{ position: "relative" }}>
+	### showSubmitButton
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"235px"} />
+</div>
+
+- Boolean value which indicates if the search button must be shown or not.
+- Default Value: `true`.
+
+<div style={{ position: "relative" }}>
+	### submitButtonLabel
+	<Pills pills={[{ type: "type", label: "string" }]} left={"235px"} />
+</div>
+
+- The text that must be shown in the submit query button.
+- Default Value: `"Search"`.
+
+<div style={{ position: "relative" }}>
+	### debounce
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"140px"} />
+</div>
+
+- Boolean value which indicates if there must be a minimum delay between submitting the query and making the API call for the submitted query.
+- Ensure that both `showSubmitButton` and `submitOnEnter` are turned off for this functionality to work.
+- `delay` must be provided, otherwise a default delay of 0 will be applied.
+- Default Value: `false`.
+
+<div style={{ position: "relative" }}>
+	### delay
+	<Pills pills={[{ type: "type", label: "number" }]} left={"90px"} />
+</div>
+
+- The time in milliseconds between submitting the new query and firing the API call for this query.
+- Default Value: `0`.
+
+<div style={{ position: "relative" }}>
+	### forceReload
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"160px"} />
+</div>
+
+- Turn this boolean to `true` if you want the api call to trigger even when you hit the same query. If this is turned to `false`, then for the same query , multiple calls will not happen.
+- Default Value: `false`.
+
+<div style={{ position: "relative" }}>
+	### showClear
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"160px"} />
+</div>
+
+- Turn this boolean to `true` if you want to show a clear button on searchbox. This clear button on click , clears out the searchbox and throws an api call for "\*" query.
+- Default Value: `false`.
+
+<div style={{ position: "relative" }}>
+	### ClearBtnComponent
+	<Pills pills={[{ type: "type", label: "functional component" }]} left={"250px"} />
+</div>
+
+- The component used to display the clear button, which clears the query in the searchbox.
+- Default Value:
+
+```js copy
+const ClearBtnComponent = () => {
+	return <>Clear</>;
+};
+```
+
+<div style={{ position: "relative" }}>
+	### onQueryChange
+	<Pills pills={[{ type: "type", label: "function" }]} left={"205px"} />
+</div>
+
+- A function that will be called when the query in the searchbox changes.
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component.
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	root: "searchbox-root", // used for the wrapper element
+	label: "searchbox-label", // used for the label
+	input: "searchbox-input", // used for the input element
+	clearButton: "search-clear-btn", // used for the clear button
+	submitButton: "searchbox-btn" // used for the submit button
+}}
+```
+
+<div style={{ position: "relative" }}>
+	### autosuggest
+	<Pills pills={[{ type: "type", label: "object" }]} left={"165px"} />
+</div>
+
+- An object which contains the configuration for the autosuggest feature.
+- Following further configurations can be passed to the object:
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### enabled
+    	<Pills pills={[{ type: "type", label: "boolean" }]} left={"100px"} />
+    </div>
+    - Enables autosuggest feature for the searchbox input. - Default Value: `false`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### AutosuggestComponent
+    	<Pills pills={[{ type: "type", label: "functional component" }]} left={"250px"} />
+    </div>
+    - It is the component which is passed by the user to render the autosuggest. - Default Value:
+
+    ```js copy
+    const AutosuggestComponent = ({ autosuggest, response }) => {
+        const { LoaderComponent } = autosuggest
+        const { loading, autosuggestQuery = "", response: { trendingSearches, popularProducts, keywordSuggestions }, fetchSearchData, searchResults } = response;
+
+        const [hoveredQuery, setHoveredQuery] = useState(autosuggestQuery)
+        const [products, setProducts] = useState(popularProducts)
+
+        const handleKeywordHover = (suggestion: string) => {
+            if (hoveredQuery !== suggestion) {
+                if (searchResults[suggestion]) {
+                    setHoveredQuery(suggestion);
+                    setProducts(searchResults[suggestion])
+                } else {
+                    fetchSearchData({ query: suggestion })
+                }
+            }
+            setHoveredQuery(suggestion)
+        }
+
+        useEffect(() => {
+            // initially, we need to show the popularProducts for user query then we need to show the products of hovered query
+            if (hoveredQuery.length > 0) {
+                if (searchResults[hoveredQuery]) {
+                    setProducts(searchResults[hoveredQuery])
+                }
+                else {
+                    setProducts(popularProducts)
+                }
+            } else {
+                setProducts(popularProducts)
+            }
+        }, [searchResults])
+
+        useEffect(() => {
+            // this is required for title and hover function trigger
+            setHoveredQuery(autosuggestQuery)
+        }, [autosuggestQuery])
+
+        useEffect(() => {
+            // this is required for the initial onFocus
+            if (hoveredQuery === autosuggestQuery) {
+                setProducts(popularProducts)
+            }
+        }, [popularProducts])
+
+        if (loading) {
+            return <div className="autosuggest-wrapper">
+                <LoaderComponent />
+            </div>
+        }
+        return <div className="autosuggest-wrapper">
+            {trendingSearches.length > 0 && autosuggestQuery === "" && <TrendingQueries headerText="Trending Queries:" trendingQueries={trendingSearches} />}
+            {autosuggestQuery !== "" && <>
+                {products.length > 0 && <PopularProducts headerText={`Popular Products:`} autosuggestQuery={hoveredQuery} products={products} />}
+                {keywordSuggestions.length > 0 && <KeywordSuggestions headerText="Keyword Suggestions:" keywordSuggestions={keywordSuggestions} onHover={handleKeywordHover} hoveredQuery={hoveredQuery} />}
+                {(products.length === 0 && keywordSuggestions.length === 0) && <AutosuggestNoResult autosuggestQuery={hoveredQuery} />}
+            </>}
+        </div>
+    }
+    ```
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### NoResultsComponent
+    	<Pills pills={[{ type: "type", label: "functional component" }]} left={"225px"} />
+    </div>
+    - It is a React component provided by the user to render the UI when no results are returned for the query. - Default Value:
+
+    ```js copy
+    const AutosuggestNoResult = ({ autosuggestQuery }) => {
+    	return <div className="no-results">No results found for "{autosuggestQuery}"</div>;
+    };
+    ```
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### LoaderComponent
+    	<Pills pills={[{ type: "type", label: "functional component" }]} left={"200px"} />
+    </div>
+    - It is a React component provided by the user to render a loader while the suggestion box is in a loading state. - Default Value:
+
+    ```js copy
+    const AutosuggestLoader = () => {
+    	return <div className="autosuggest-loader">Loading...</div>;
+    };
+    ```
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### minChars
+    	<Pills pills={[{ type: "type", label: "number" }]} left={"115px"} />
+    </div>
+    - It is the minimum number of characters required to trigger the API call. - Default Value: `3`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### extraParams
+    	<Pills pills={[{ type: "type", label: "object" }]} left={"140px"} />
+    </div>
+    - It is an object used to include additional payload in the API request. - Default Value: `{}`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### trendingSearches
+    	<Pills pills={[{ type: "type", label: "object" }]} left={"190px"} />
+    </div>
+    - It is an object that contains additional configurations for trending searches. - Default Value:
+
+        ```js copy
+        trendingSearches = {
+        	enabled: true,
+        	count: 6
+        }
+        ```
+
+    - Further Configs:
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### enabled
+        	<Pills pills={[{ type: "type", label: "boolean" }]} left={"95px"} />
+        </div>
+        - A boolean that determines whether the trending search API call should be made. - Default Value: `true`.
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### count
+        	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+        </div>
+        - The number of trending search suggestions to display. - Default Value: `6`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### popularProducts
+    	<Pills pills={[{ type: "type", label: "object" }]} left={"180px"} />
+    </div>
+    - It is an object that contains additional configurations for popular products suggestions. - Default Value:
+
+        ```js copy
+        popularProducts = {
+        	count: 3,
+        	fields: []
+        }
+        ```
+
+    - Further Configs:
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### count
+        	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+        </div>
+        - The number of popular products suggestions to display. - Default Value: `3`.
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### fields
+        	<Pills pills={[{ type: "type", label: "string array" }]} left={"75px"} />
+        </div>
+        - It is an array that specifies the field names to be fetched for popular products. - Default Value: `[]`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### keywordSuggestions
+    	<Pills pills={[{ type: "type", label: "object" }]} left={"215px"} />
+    </div>
+    - It is an object that contains additional configurations for keyword suggestions. - Default Value:
+
+        ```js copy
+        keywordSuggestions = {
+        	count: 2,
+        	prefetch: false
+        }
+        ```
+
+    - Further Configs:
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### count
+        	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+        </div>
+        - The number of keyword suggestions to display. - Default Value: `2`.
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### prefetch
+        	<Pills pills={[{ type: "type", label: "boolean" }]} left={"95px"} />
+        </div>
+        - A boolean that determines whether the search call for keyword suggestions should be made while typing the query itself or no call at all should go. -
+        Default Value: `false`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### topQueries
+    	<Pills pills={[{ type: "type", label: "object" }]} left={"130px"} />
+    </div>
+    - It is an object that contains additional configurations for top queries suggestions. - Default Value:
+
+        ```js copy
+        topQueries = {
+        	count: 2,
+        	prefetch: false
+        }
+        ```
+
+    - Further Configs:
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### count
+        	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+        </div>
+        - The number of top queries suggestions to display. - Default Value: `2`.
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### prefetch
+        	<Pills pills={[{ type: "type", label: "boolean" }]} left={"95px"} />
+        </div>
+        - A boolean that determines whether the search call for top queries suggestions should be made while typing the query itself or no call at all should
+        go. - Default Value: `false`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### inFields
+    	<Pills pills={[{ type: "type", label: "object" }]} left={"95px"} />
+    </div>
+    - It is an object that contains additional configurations for inFields suggestions. - Default Value:
+
+        ```js copy
+        inFields = {
+        	count: 2,
+        	prefetch: false,
+        	noOfFields: 2,
+        	filterField: "category"
+        }
+        ```
+
+    - Further Configs:
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### count
+        	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+        </div>
+        - The number of inFields suggestions to display. - Default Value: `2`.
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### prefetch
+        	<Pills pills={[{ type: "type", label: "boolean" }]} left={"95px"} />
+        </div>
+        - A boolean that determines whether the search call for inFields suggestions should be made while typing the query itself or no call at all should go. -
+        Default Value: `false`.
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### noOfFields
+        	<Pills pills={[{ type: "type", label: "number" }]} left={"115px"} />
+        </div>
+        - The number of infields for which the products need to be fetched and displayed. - Default Value: `2`.
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### filterField
+        	<Pills pills={[{ type: "type", label: "string" }]} left={"105px"} />
+        </div>
+        - The key in the API response from which we get the infield values. - Default Value: `"category"`.
+
+  - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+    	#### promotedSuggestions
+    	<Pills pills={[{ type: "type", label: "object" }]} left={"230px"} />
+    </div>
+    - It is an object that contains additional configurations for promoted suggestions. - Default Value:
+
+        ```js copy
+        promotedSuggestions = {
+        	count: 3,
+        	prefetch: false
+        }
+        ```
+
+    - Further Configs:
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### count
+        	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+        </div>
+        - The number of promoted suggestions to display. - Default Value: `3`.
+
+      - <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+        	##### prefetch
+        	<Pills pills={[{ type: "type", label: "boolean" }]} left={"95px"} />
+        </div>
+        - A boolean that determines whether the search call for promoted suggestions should be made while typing the query itself or no call at all should go. -
+        Default Value: `false`.
+
+## Related Hooks
+
+To use the Unbxd React Search SDK without the pre-built SearchBox component, add the search functionality to your custom component using the useQuery hook and add the autosuggest functionality using the useAutosuggest hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useQuery" href="/docs/useQuery" />
+	<Card icon={<HookIcon />} title="useAutosuggest" href="/docs/useAutosuggest" />
+</Cards>

@@ -1,0 +1,732 @@
+import { Products } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import CSRWrapper from "../../components/CSRWrapper";
+import Pills from "../../components/Pills";
+import Loader from "../../components/Loader";
+import LoadingGrid from "../../components/LoadingGrid";
+import HookIcon from "../../components/icons/HookIcon";
+import SwatchesIcon from "../../components/icons/SwatchesIcon";
+import CarouselIcon from "../../components/icons/CarouselIcon";
+import ImageIcon from "../../components/icons/ImageIcon";
+import ProductHover from "../../components/ProductHover";
+import ProductMainCarousel from "../../components/ProductMainCarousel";
+import ProductVariants from "../../components/ProductVariants";
+import ProductSwatches from "../../components/ProductSwatches";
+
+# Products
+
+## Overview
+
+In e-commerce, “Products” refer to the items that are available for purchase on an online store. These can be physical goods, such as clothing, electronics, or furniture, or digital goods, such as software, music, or video content.
+
+An e-commerce website typically includes a catalog of products, which can be searched, filtered, and sorted by various criteria such as product category, brand, price, and more. Each product typically has a detailed page that includes information such as a product image, name, description, price, and available options such as size, color, or material.
+
+The products are usually grouped into categories, like for example clothing, electronics, and home decor, which helps users to easily find the products they are looking for. Additionally, each product can also be associated with multiple tags and attributes that can be used for searching, filtering, and sorting the products.
+
+The availability of a wide range of products and the ability to easily find and compare them is a key factor in the success of an e-commerce website, as it helps to attract and retain customers, and ultimately drive sales.
+
+## Usage
+
+```js copy
+// importing component
+import { Products } from "@unbxd-ui/react-search-components";
+
+// import style for the component
+import "@unbxd-ui/react-search-components/styles/products.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/products.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **Products** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+## Live Demo
+
+### 1. Default
+
+By default, on importing the Products component, a 3-column product grid will be rendered.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products />
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy {7}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Products } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper>
+			...
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+### 2. Change Image on Hover
+
+In the `ProductComponent` prop that is passed to the `Products` component, you can make use of the built-in `Image` component for such a use case.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="6546d9da179ff8cd96416ebb8078e11f" siteKey="ss-unbxd-dev-supertails43231684494776"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products ProductComponent={ProductHover} />
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Products, Image } from "@unbxd-ui/react-search-components";
+
+		const ProductHover = ({ product }) => {
+			const { idx, uniqueId, title, price, images } = product;
+			return (
+    			<div
+    				data-prank={idx}
+    				key={uniqueId}
+    				className="product-card"
+    				onClick={(event) => {
+    				    event.stopPropagation();
+    				}}
+    				style={{ cursor: "pointer" }}>
+    				<Image imageUrl={images[0]} hoverImageUrl={images[1]} />
+    				<div className="product-description">
+    				    <h3>{title}</h3>
+    				    <div>{price}</div>
+    				</div>
+    			</div>
+			);
+		}
+
+		// rendering the product grid
+		<UnbxdSearchWrapper>
+			...
+			<Products ProductComponent={ProductHover} />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+### 3. Multiple Images as Carousel
+
+In the `ProductComponent` prop that is passed to the `Products` component, you can make use of the built-in `Carousel` component for such a use case.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="6546d9da179ff8cd96416ebb8078e11f" siteKey="ss-unbxd-dev-supertails43231684494776"
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products ProductComponent={ProductMainCarousel} />
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Products, Carousel } from "@unbxd-ui/react-search-components";
+
+		const ProductWithCarousel = ({ product }) => {
+			const { idx, title, price, images } = product;
+
+			const handleVariantClick = (index) => {
+				console.log("You clicked on", product.title, "and are viewing image number", index + 1)
+			}
+
+			return (
+				<div
+					data-prank={idx}
+					className="product-card"
+					onClick={(event) => {
+						event.stopPropagation();
+					}}
+					style={{ cursor: "pointer" }}>
+					<div className="product-idx">{idx}</div>
+					<Carousel list={images} onClick={handleVariantClick} visibleCount={1} />
+					<div className="product-description">
+						<h3>{title}</h3>
+						<div>${price}</div>
+					</div>
+				</div>
+			);
+		}
+
+		// rendering the product grid
+		<UnbxdSearchWrapper>
+			...
+			<Products ProductComponent={ProductWithCarousel} />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+### 4. Product With Variants
+
+In the `ProductComponent` prop that is passed to the `Products` component, you can make use of the built-in `Image` and `Carousel` components for such a use case.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="6546d9da179ff8cd96416ebb8078e11f" siteKey="ss-unbxd-dev-supertails43231684494776"
+			defaultValues={{
+				pageSize: 8
+			}}
+			variants={{
+				enabled: true,
+				count: 5,
+				attributes: ["v_imageUrl"],
+				mapping: { "image_url": "v_imageUrl" }
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products ProductComponent={ProductVariants} />
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		// code for the above example
+		import { useState } from "react";
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Products, Image, Carousel } from "@unbxd-ui/react-search-components";
+
+		const ProductVariants = ({ product }) => {
+			const { idx, title, price, imageUrl } = product;
+
+			const [mainImage, setMainImage] = useState(Array.isArray(imageUrl) ? imageUrl[0]: imageUrl);
+
+			const variantImagesUrl = product.variants?.map((variant) => variant["v_imageUrl"]);
+
+			const handleVariantClick = (index) => {
+				setMainImage(product.variants[index]["v_imageUrl"]);
+			};
+
+			return (
+				<div
+					data-prank={idx}
+					className="product-card"
+					onClick={(event) => {
+						event.stopPropagation();
+					}}
+					style={{ cursor: "pointer" }}>
+					<div className="product-idx">{idx}</div>
+					<Image imageUrl={mainImage} />
+					{variantImagesUrl?.length > 0 && <Carousel list={variantImagesUrl} onClick={handleVariantClick} visibleCount={3} />}
+					<div className="product-description">
+						<h3>{title}</h3>
+						<div>${price}</div>
+					</div>
+				</div>
+			);
+		};
+
+		// rendering the product grid
+		<UnbxdSearchWrapper 
+			apiUrlConfig={{
+				variants={{
+					enabled: true,
+					count: 5,
+					attributes: ["v_imageUrl"],
+					mapping: { "image_url": "v_imageUrl" }
+				}}
+			}}
+			>
+			...
+			<Products ProductComponent={ProductVariants} />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+### 5. Product With Swatches
+
+In the `ProductComponent` prop that is passed to the `Products` component, you can make use of the built-in `Image` and `Swatches` components for such a use case.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="fb853e3332f2645fac9d71dc63e09ec1" siteKey="demo-unbxd700181503576558"
+			defaultValues={{
+				pageSize: 8,
+				query: "Necklaces"
+			}}
+			webUrlConfig={{
+				query: {
+					addToUrl: false,
+				},
+				sort: {
+					addToUrl: false,
+				},
+				view: {
+					addToUrl: false,
+				},
+				pageSize: {
+					addToUrl: false,
+				},
+				currentPage: {
+					addToUrl: false,
+				},
+				facets: {
+					addToUrl: false,
+				},
+				pagination: {
+					addToUrl: false
+				}}
+			} 
+		>
+			<Products ProductComponent={ProductSwatches} />
+		</CSRWrapper>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		// code for the above example
+		import { useState } from "react";
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Products, Image, Swatches } from "@unbxd-ui/react-search-components";
+
+		const ProductSwatches = ({ product }) => {
+			const { idx, title, price, imageUrl } = product;
+
+			const [mainImage, setMainImage] = useState(Array.isArray(imageUrl) ? imageUrl[0]: imageUrl);
+
+			const swatches = product.unbxd_color_mapping || [];
+
+			const handleSwatchClick = (index) => {
+				const newMainImage = swatches[index].split("::")[1];
+				setMainImage(newMainImage);
+			};
+
+			return (
+				<div
+					data-prank={idx}
+					className="product-card"
+					onClick={(event) => {
+						event.stopPropagation();
+					}}
+					style={{ cursor: "pointer" }}>
+					<div className="product-idx">{idx}</div>
+					<Image imageUrl={mainImage} />
+					<div className="product-description">
+						<Swatches
+							list={swatches.map((swatch) => swatch.split("::")[0])}
+							onClick={handleSwatchClick}
+						/>
+						<h3>{title}</h3>
+						<div>${price}</div>
+					</div>
+				</div>
+			);
+		};
+
+		// rendering the product grid
+		<UnbxdSearchWrapper>
+			...
+			<Products ProductComponent={ProductSwatches} />
+			...
+		</UnbxdSearchWrapper>
+		```
+	</div>
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### ProductComponent
+	<Pills pills={[{ type: "type", label: "Functional Component" }]} left={"240px"} />
+</div>
+
+- A highly customisable functional component that will be used to render each product in the products container. 
+- Default value:
+
+```js copy
+const ProductComponent = ({ product }) => {
+	const { idx, uniqueId, title, price, imageUrl } = product;
+
+	const variantImagesUrl = product.variants?.map((variant: any) => variant["v_imageUrl"]);
+
+	const handleVariantClick = (index: number) => {
+		console.log(product.variants[index]["v_imageUrl"])
+	}
+
+	const swatches = product.unbxd_color_mapping || [];
+
+	const handleSwatchClick = (index: number) => {
+		console.log(swatches[index].split("::")[1]);
+	};
+
+	return (
+		<div
+			data-prank={idx}
+			key={uniqueId}
+			className="product-card"
+			onClick={(event) => {
+				event.stopPropagation();
+			}}>
+			<Image imageUrl={imageUrl[0]} />
+			{variantImagesUrl?.length > 0 && <Carousel list={variantImagesUrl} onClick={handleVariantClick} visibleCount={3} />}
+			<div className="product-description">
+				<h3>{title}</h3>
+				<div>${price}</div>
+				{swatches && <Swatches list={swatches.map((swatch: { [key: string]: any }) => swatch.split("::")[0])} onClick={handleSwatchClick} />}
+			</div>
+		</div>
+	);
+};
+```
+
+<div style={{ position: "relative" }}>
+	### NoResultsComponent
+	<Pills pills={[{ type: "type", label: "Functional Component" }]} left={"265px"} />
+</div>
+
+- A highly customisable functional component that will be used when there are no products for the given query. You can make use of the various built-in component hooks to add more details or redirections to your component. 
+- Default value:
+
+```js copy
+const NoResultsComponent = () => {
+	return <div className="no-results-container">There are no products for this query.</div>;
+};
+```
+
+<div style={{ position: "relative" }}>
+	### LoaderComponent
+	<Pills pills={[{ type: "type", label: "Functional Component" }]} left={"230px"} />
+</div>
+
+- The component that is shown when an API call is made to retrieve the new set of products.
+- Default value:
+
+```js copy
+const LoaderComponent = ({ className = "loader-component" }) => {
+	return <div className={className}>Loading...</div>
+}
+```
+
+- The `LoaderComponent` is highly customisable:
+	1. A bare basic component with just a loading text can be used. The following code is the default value of this component:
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<div className="loader">
+            Loading...
+        </div>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		const LoaderComponent = ({ className }) => {
+		    return (
+		        <div className={className}>
+		            Loading...
+		        </div>
+		    );
+		};
+		```
+	</div>
+</div>
+
+
+	2. You can also choose to add an animated gif or svg as your `LoaderComponent` as follows:
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<Loader className="loader" />
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		const LoaderComponent = = ({ className }) => {
+		    return <div className={className}>
+		        <img src={"/loader.svg"} alt="loader" />
+		    </div>
+		};
+		```
+	</div>
+</div>
+
+
+	3. If you want to keep the product grid flow going, you can create a `LoaderComponent` which is similar to the following example.
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<LoadingGrid className="product-container loader-container" />
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+		const LoaderComponent = ({ className }) => {
+		    return (
+		        <div className={className}>
+		            {[1, 2, 3, 4].map(idx => (
+		                <div key={idx} className="product-card loader-container">
+		                    <div className="loading-image"></div>
+		                    <div className="loading-title"></div>
+		                    <div className="loading-price"></div>
+		                </div>
+		            ))}
+		        </div>
+		    );
+		};
+		```
+	</div>
+</div>
+
+<div style={{ position: "relative" }}>
+	### onProductLoad
+	<Pills pills={[{ type: "type", label: "function" }]} left={"195px"} />
+</div>
+
+- A function that is called when a new set of products are rendered.
+- Default value:
+
+```js copy
+// scrolling to a product if its idx is present in the localStorage
+const onProductLoad = () => {
+    const clickedProduct = window.localStorage.getItem("idx");
+    if (clickedProduct) {
+        document.querySelector(`[data-prank="${clickedProduct}"]`)?.scrollIntoView({ behavior: "instant" })
+        window.localStorage.removeItem("idx")
+    }
+}
+```
+
+<div style={{ position: "relative" }}>
+	### extraProps
+	<Pills pills={[{ type: "type", label: "object" }]} left={"150px"} />
+</div>
+
+- An object using which the user can pass extra props to the `ProductComponent`. The user can then use these props in the `ProductComponent`.
+- Default Value: `{}`.
+
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "product-container", // used for the products container
+	loader: "product-loader" // used for the loader component
+}}
+```
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useProducts</div>
+
+To use the Unbxd React Search SDK without the pre-built Products component, add the functionality to your custom component using the useProducts hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useProducts" href="/docs/useProducts" />
+</Cards>
+
+
+## Related Components
+
+<Cards>
+	<Card icon={<ImageIcon />} title="Image" href="/docs/more-components/image" />
+	<Card icon={<CarouselIcon />} title="Carousel" href="/docs/more-components/carousel" />
+	<Card icon={<SwatchesIcon />} title="Swatches" href="/docs/more-components/swatches" />
+</Cards>

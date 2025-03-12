@@ -1,0 +1,153 @@
+import CSRWrapper from "../../components/CSRWrapper";
+import { Breadcrumb, MultilevelFacet, Products } from "@unbxd-ui/react-search-components";
+import { Cards, Card, Callout } from "nextra/components";
+
+import Pills from "../../components/Pills";
+import HookIcon from "../../components/icons/HookIcon";
+import CategoryTreeIcon from "../../components/icons/CategoryTreeIcon";
+
+# Breadcrumb
+
+## Overview
+
+In e-commerce, 'Breadcrumb' refers to a navigation element that allows users to see the hierarchical structure of the website and understand their location within the site. They are typically displayed as a series of links that indicate the path that a user has taken to reach the current page.
+
+For example, if a user is on a product page for a specific item, the breadcrumb might show: <br/> Home > Clothing > T-shirts > Men's T-shirts > [Product Name]
+
+This way, the user can easily understand where they are within the website and navigate to other sections of the site.
+
+Breadcrumbs are usually displayed at the top of a page, above the main content area. They can be helpful for users that have landed on a page from a search engine, external link or other website, as it allows them to understand the context of the page and navigate to other related sections.
+
+Additionally, it can help users that are not familiar with the website structure to easily navigate, and also to return to a specific location on the website, by clicking on the breadcrumb links.
+
+Breadcrumbs can also be used to highlight the relevance of the product or category that user is currently browsing in the website.
+
+## Usage
+
+```js copy
+// importing component
+import { Breadcrumb } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/breadcrumb.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/breadcrumb.css")
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **Breadcrumb** component must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the component and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Live Demo
+
+<div className="code-example" style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px", border: "1px solid #ededed", borderRadius: "10px", overflow: "hidden", overflow: "hidden"}}>
+	<div style={{ width: "100%", padding: "20px 15px" }}>
+		<CSRWrapper apiKey="18a57a4b0f096449ae5e6d6891c1970c" siteKey="ss-unbxd-ss34831655294906" 
+			defaultValues={{
+				pageSize: 8
+			}}
+			webUrlConfig={{query: {
+				addToUrl: false,
+			},
+			sort: {
+				addToUrl: false,
+			},
+			view: {
+				addToUrl: false,
+			},
+			pageSize: {
+				addToUrl: false,
+			},
+			currentPage: {
+				addToUrl: false,
+			},
+			facets: {
+				addToUrl: false,
+			},
+			pagination: {
+				addToUrl: false
+			}}} 
+		>
+			<Breadcrumb name="categoryPath" />
+			<div style={{margin: "15px 0", width: "fit-content"}}>
+				<MultilevelFacet name="categoryPath" showAllParents={true} defaultOpen={false} renderAs="dropdown" />
+			</div>
+			<Products />
+		</CSRWrapper>
+	</div>
+
+    <div style={{width: "100%", borderTop: "1px solid #ededed"}}>
+		```js copy {7}
+		// code for the above example
+		import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+		import { Breadcrumb, MultilevelFacet, Products } from "@unbxd-ui/react-search-components";
+
+		<UnbxdSearchWrapper webUrlConfig={{categoryFacets: ["categoryPath"]}}>
+			...
+			<Breadcrumb name="categoryPath" />
+			<MultilevelFacet name="categoryPath" showAllParents={true} defaultOpen={false} renderAs="dropdown" />
+			<Products />
+			...
+		</UnbxdSearchWrapper>
+		```
+    </div>
+</div>
+
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### name
+	<Pills pills={[{ type: "type", label: "string" }]} left={"90px"} />
+</div>
+
+- The name of the facet of type 'multilevel'.
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+    wrapper: "breadcrumb-container", // used for the wrapper element
+    breadcrumb: "breadcrumb-value", // used for each breadcrumb value
+    separator: "breadcrumb-slash" // used for the breadcrumb separator
+}}
+```
+
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useBreadcrumb</div>
+
+To use the Unbxd React Search SDK without the pre-built Breadcrumb component, add the functionality to your custom component using the useBreadcrumb hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useBreadcrumb" href="/docs/useBreadcrumb" />
+</Cards>
+
+
+## Related Components
+
+<Cards>
+	<Card icon={<CategoryTreeIcon />} title="Multilevel Facet" href="/docs/facets/multilevel" />
+</Cards>

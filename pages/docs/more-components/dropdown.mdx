@@ -1,0 +1,141 @@
+import Pills from "../../../components/Pills";
+import { Cards, Card } from "nextra/components";
+import ProductsIcon from "../../../components/icons/ProductsIcon";
+import { Dropdown, Activator, Body } from "@unbxd-ui/react-search-components";
+
+# Dropdown
+
+## Overview
+
+The Dropdown component is designed to manage dropdown functionality, allowing users to toggle visibility of additional content in an organized way. 
+Additionally, the Dropdown component exports two other sub-components: `Activator` and `Body` .
+
+## Usage
+
+```js copy
+// importing component
+import { Dropdown, Activator, Body } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/dropdown.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/dropdown.css")
+```
+
+## Sub-components
+
+<div style={{ position: "relative" }}>
+	### Activator
+</div>
+
+The `Activator` is nested within the Dropdown component as a child element. 
+It is designed to contain an interactive element, such as a button or clickable area, that triggers the expansion or collapse of the dropdown's content. 
+
+
+<div style={{ position: "relative" }}>
+	### Body
+</div>
+The `Body` is placed as the second child within the Dropdown component. 
+It serves as the container for the main content of the dropdown, allowing you to insert any elements that should be displayed when the dropdown is expanded. 
+
+
+## Live Demo
+
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 5px", display: "inline-flex" }}>
+
+		<Dropdown>
+			<Activator>
+				<div>Furniture</div>
+			</Activator>
+			
+			<Body>
+				<ul>
+					<li>Table</li>
+					<li>Chairs</li>
+					<li>Dining</li>
+					<li>Bedroom</li>
+				</ul>
+			</Body>
+		</Dropdown>
+	
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+        // code used for above example
+		import { Dropdown, Activator, Body } from "@unbxd-ui/react-search-components";
+
+		<Dropdown selected={false}>
+			<Activator>
+				<div>Furniture</div>
+			</Activator>
+			
+			<Body>
+				<ul>
+					<li>Table</li>
+					<li>Chairs</li>
+					<li>Dining</li>
+					<li>Bedroom</li>
+				</ul>
+			</Body>
+		</Dropdown>
+		```
+	</div>
+</div>
+
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### selected
+	<Pills pills={[
+		{ type: "optional", label: "optional" },
+		{ type: "type", label: "boolean" }
+		]} left={"120px"} />
+</div>
+
+The selected prop is a boolean that indicates whether any option in the dropdown is currently selected. If an option is selected, the dropdown receives the `dd-selected` class, allowing it to visually represent the selected state. 
+
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+This prop will be used to style the component. The value must use a defined structure (the structure can be seen in the following example).
+The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "",
+	header: "",
+	body: ""
+}}
+```
+
+## Related Components
+
+<Cards>
+	<Card icon={<ProductsIcon />} title="Accordion" href="/docs/more-components/accordion" />
+</Cards>

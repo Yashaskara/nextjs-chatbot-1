@@ -1,0 +1,217 @@
+import { Cards, Card, Callout } from "nextra/components";
+import Pills from "../../components/Pills";
+
+import SearchIcon from "../../components/icons/SearchIcon";
+import SummaryIcon from "../../components/icons/SummaryIcon";
+
+# useAutosuggest
+
+## Overview
+
+The useAutosuggest hook enables the creation of an autosuggest component that provides suggestions based on a given query.
+
+
+## Usage
+
+```js copy
+import { useAutosuggest } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useAutosuggest** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useAutosuggest } from "@unbxd-ui/react-search-hooks";
+
+const SearchComponent = () => {
+	const { query, setQuery } = useAutosuggest({ delay: 300, forceReload: false });
+
+	const handleSearch = (event) => {
+		setQuery(event.target.value);
+	};
+
+	return (
+		<div>
+			<input type="text" value={query} onChange={handleSearch} placeholder="Search for products..." />
+		</div>
+	);
+};
+```
+
+
+## Hook API
+
+### Parameters
+
+<div style={{ position: "relative" }}>
+	#### minChars
+	<Pills pills={[{ type: "type", label: "number" }]} left={"105px"} />
+</div>
+
+- The minimum number of characters required in the query before initiating the API call.
+- Default value: 3
+	
+	
+<div style={{ position: "relative" }}>
+	#### trendingSearches
+	<Pills pills={[{ type: "type", label: "object" }]} left={"185px"} />
+</div>
+
+- It is an object that contains additional configurations for trending searches.
+- Further Configs :
+    - `enabled`: A boolean that determines whether the trending search API call should be made.
+    - `count`: The number of trending search suggestions to display.
+- Default value :
+```js copy
+trendingSearches: {
+    enabled: true,
+    count: 6
+}
+```
+    
+    
+<div style={{ position: "relative" }}>
+	#### inFields
+	<Pills pills={[{ type: "type", label: "object" }]} left={"145px"} />
+</div>
+
+- It is an object that contains additional configurations for inFields suggestions.
+- Further Configs :
+    - `count`: The number of Infields suggestions to display.
+    - `prefetch`: A boolean that determines whether the search call for inFields suggestions should be made while typing the query itself or no call at all should go.
+- Default value :
+```js copy
+inFields: {
+    count: 2,
+    prefetch: false,
+    filterField: "category"
+}
+```
+
+
+<div style={{ position: "relative" }}>
+	#### topQueries
+	<Pills pills={[{ type: "type", label: "object" }]} left={"145px"} />
+</div>
+
+- It is an object that contains additional configurations for topQueries suggestions.
+- Further Configs :
+    - `count`: The number of top queries suggestions to display.
+    - `prefetch`: A boolean that determines whether the search call for top queries suggestions should be made while typing the query itself or no call at all should go.
+- Default value :
+```js copy
+topQueries: {
+        count: 2,
+        prefetch: false
+}
+```
+
+<div style={{ position: "relative" }}>
+	#### keywordSuggestions
+	<Pills pills={[{ type: "type", label: "object" }]} left={"165px"} />
+</div>
+
+- It is an object that contains additional configurations for keywordSuggestions suggestions.
+- Further Configs :
+    - `count`: The number of keyword suggestions to display.
+    - `prefetch`: A boolean that determines whether the search call for keyword suggestions should be made while typing the query itself or no call at all should go.
+- Default value :
+```js copy
+keywordSuggestions: {
+    count: 2,
+    prefetch: false
+}
+```
+
+<div style={{ position: "relative" }}>
+	#### popularProducts
+	<Pills pills={[{ type: "type", label: "object" }]} left={"145px"} />
+</div>
+
+- It is an object that contains additional configurations for keywordSuggestions suggestions.
+- Further Configs :
+    - `count`: The number of popularProducts suggestions to display.
+    - `fields`: It is an array that specifies the field names to be fetched for popular products.
+- Default value :
+```js copy
+popularProducts: {
+    count: 3,
+    fields: []
+}
+```
+    
+<div style={{ position: "relative" }}>
+	#### promotedSuggestions
+	<Pills pills={[{ type: "type", label: "object" }]} left={"145px"} />
+</div>
+
+- It is an object that contains additional configurations for promotedSuggestions suggestions.
+- Further Configs :
+    - `count`: The number of promotedSuggestions suggestions to display.
+    - `prefetch`: A boolean that determines whether the search call for keyword suggestions should be made while typing the query itself or no call at all should go.
+- Default value :
+```js copy
+promotedSuggestions: {
+    count: 3,
+    prefetch: false
+}
+```
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### autosuggestQuery
+	<Pills pills={[{ type: "type", label: "string" }]} left={"80px"} />
+</div>
+
+-  This represents the current query in the state that has been entered for autosuggest suggestions.
+
+<div style={{ position: "relative" }}>
+	#### setAutosuggestQuery
+	<Pills pills={[{ type: "type", label: "function" }]} left={"80px"} />
+</div>
+
+-  This is a function that updates the autosuggest query in the state.
+
+<div style={{ position: "relative" }}>
+	#### response
+	<Pills pills={[{ type: "type", label: "object" }]} left={"80px"} />
+</div>
+
+-  This is an object that provides responses for `keywordSuggestions`, `popularProducts`, `inFields`, `promotedSuggestions`, `topQueries`, and `trendingSearches`.
+
+<div style={{ position: "relative" }}>
+	#### loading
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"80px"} />
+</div>
+
+-  This boolean defines if the component is in loading state or not.
+
+<div style={{ position: "relative" }}>
+	#### fetchSearchData
+	<Pills pills={[{ type: "type", label: "function" }]} left={"80px"} />
+</div>
+
+-  This is the function that can be used to make a search api call.
+-  Following parameters can be passed while invoking `fetchSearchData` in an object:
+    - 1.`query`: Current query for which the call needs to be made.
+    - 2.`filter`: The value of the field name that needs to passed as filter in the api call.
+-  Usuage :
+```js copy
+fetchSearchData({query: "red", filter: "red shirt});
+```
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<SearchIcon />} title="SearchBox" href="/docs/searchbox" />
+	<Card icon={<SummaryIcon />} title="Summary" href="/docs/summary" />
+</Cards>

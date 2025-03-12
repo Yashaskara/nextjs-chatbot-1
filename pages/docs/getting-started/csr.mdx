@@ -1,0 +1,149 @@
+import Link from "next/link";
+import { Cards, Card, Steps, Callout } from "nextra/components";
+
+import ArrowRightIcon from "../../../components/icons/ArrowRightIcon";
+import ClientIcon from "../../../components/icons/ClientIcon";
+
+# Client Side Rendering (CSR)
+
+The CSR package is ideal for single-page applications (SPAs) where rendering happens entirely on the client side. This approach ensures fast interactions, flexibility, and scalability, making it a great choice for e-commerce platforms that prioritize dynamic user experiences. This guide walks you through setting up the SDK for building a client-side rendered (CSR) application.
+
+## Who is this intended for?
+
+This package is designed for developers building e-commerce platforms that require:
+
+- **Interactive Shopping Experiences**: For SPAs with features like product filtering, sorting, and real-time updates that enhance user engagement.
+- **Personalized Content**: Tailored user experiences, such as product recommendations and custom search results.
+- **Scalable Applications**: Offload rendering to the client to handle variable traffic loads effectively.
+- **Gated Content Areas**: Internal tools or areas where SEO is less critical, like authenticated dashboards or user-specific pages.
+
+For Server-Side Rendering (SSR) or headless (hooks-based) setups, explore the options below:
+
+<Cards>
+  <Card
+    icon={<>Server Side Rendering (SSR)<ArrowRightIcon /></>}
+    href="/docs/getting-started/ssr"
+  />
+  <Card
+    icon={<>Hooks<ArrowRightIcon /></>}
+    href="/docs/getting-started/customHooks"
+  />
+</Cards>
+
+## Prerequisites
+
+Ensure the following before proceeding:
+
+- React (v18.2 or higher)
+- Node.js (v18 or higher)
+- npm or yarn for package management
+- A pre-existing React project
+
+## Installation
+
+<Callout type="info" emoji="ℹ️">
+  <div>**Note:**</div>
+  <div>
+    Refer to the <Link href={"/docs/changelog"}>**Change Log**</Link> page for details on the latest version, including its features, upgrades, and fixes.
+  </div>
+</Callout>
+
+<Steps>
+### Install the CSR Package
+
+Add the Unbxd React SDK CSR package to your project:
+
+```bash
+npm install @unbxd-ui/react-search-components
+```
+
+Or with Yarn:
+
+```bash
+yarn add @unbxd-ui/react-search-components
+```
+
+### Install Hooks Package
+
+For advanced customization, also install the hooks package:
+
+```bash
+npm install @unbxd-ui/react-search-hooks
+```
+
+Or with Yarn:
+
+```bash
+yarn add @unbxd-ui/react-search-hooks
+```
+
+### Setting up the UnbxdSearchWrapper
+
+The `UnbxdSearchWrapper` is the core integration point for incorporating search capabilities into your e-commerce platform. It handles state and ensures seamless functionality across components.
+
+Learn more about its configuration <Link style={{ color: "blue" }} href={"/docs/unbxdSearchWrapperCSR"}>here</Link>.
+
+<Card
+  icon={<ClientIcon />}
+  title="UnbxdSearchWrapper"
+  href="/docs/unbxdSearchWrapperCSR"
+  style={{ marginTop: "10px", width: "fit-content" }}
+/>
+
+```jsx
+import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+
+<UnbxdSearchWrapper
+  siteKey="TEST_SITEKEY"
+  apiKey="TEST_APIKEY"
+  defaultValues={{ ... }}
+  webUrlConfig={{ ... }}
+  apiUrlConfig={{ ... }}
+  onEvent={({type, message, value, state}) => {}}
+  setWebUrl={() => {}}
+  headers={{}}
+>
+  {/* Add your components here */}
+</UnbxdSearchWrapper>
+```
+
+### Configure Headers
+
+Pass headers like `userId`, `userAgent`, and `currentPath` for a tailored experience. More details are available <Link style={{ color: "blue" }} href={"/docs/unbxdSearchWrapperCSR#apiurlconfig"}>here</Link>.
+
+### Import and Use Components
+
+Start leveraging pre-built components or build your own using hooks:
+
+```jsx
+import { UnbxdSearchWrapper } from "@unbxd-ui/react-search-hooks";
+import { SearchBox, Products } from "@unbxd-ui/react-search-components";
+
+function App() {
+  return (
+    <UnbxdSearchWrapper apiKey="YOUR_API_KEY" siteKey="YOUR_SITE_KEY">
+      <SearchBox />
+      <Products />
+    </UnbxdSearchWrapper>
+  );
+}
+
+export default App;
+```
+
+### Customize and Configure
+
+Explore advanced configurations and examples in our comprehensive documentation. Learn how to extend components and hooks to fit your e-commerce needs.
+
+</Steps>
+
+## Best Practices for CSR
+
+Follow these practices to get the most out of the Unbxd React SDK:
+
+- **Use Pre-Built Components**: Leverage components like `SearchBox`, `Products`, and `Facets` to streamline development and ensure compatibility with Unbxd's platform.
+- **Optimize API Interactions**: Use the SDK's built-in optimizations to reduce redundant API calls, ensuring faster data fetching and smoother user experiences.
+- **Customize Strategically**: Modify behavior only when necessary using hooks. Stick to default implementations to maintain stability and simplify maintenance.
+- **Integrate Seamlessly**: Follow guidelines for state management and routing to ensure smooth CSR operation within your existing setup.
+- **Focus on UX**: Build intuitive and responsive shopping experiences with SDK components like banners, breadcrumbs, and product displays.
+- **Leverage Documentation**: Refer to examples and best practices in the SDK documentation to avoid pitfalls and ensure efficient implementation.

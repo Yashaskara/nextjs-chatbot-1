@@ -1,0 +1,117 @@
+import { Cards, Card, Callout } from "nextra/components";
+import Pills from "../../components/Pills";
+import ProductsIcon from "../../components/icons/ProductsIcon";
+
+# useProducts
+
+## Overview
+
+The **useProducts** hook is designed to manage and retrieve the list of products from the current search results within an e-commerce platform. It provides essential details like the list of products, the starting index of the products, and the total number of products available based on the search query.
+
+## Usage
+
+```js copy
+import { useProducts } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useProducts** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useProducts, useProductView } from "@unbxd-ui/react-search-hooks";
+
+const ProductListComponent = () => {
+    const { productType, products, start, numberOfProducts} = useProducts();
+    const { view } = useProductView();
+
+    const renderSummary = (productType) => {
+        if(productType === "SEARCH") {
+            return <p>Showing {products.length} products starting from index {start + 1} out of {numberOfProducts} total products.</p>
+        } else {
+            return <p>Total products in this category: {numberOfProducts}</p>
+        }
+    }
+
+    return (
+        <div className={`product-list ${view == "grid" ? "grid": "list"}`}>
+            {renderSummary(productType)}
+            <ul>
+                {products.map((product, index) => (
+                    <li key={index}>
+                        <h2>{product.name}</h2>
+                        <p>Price: ${product.price}</p>
+                        <img src={product.imageUrl} alt={product.name} />
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+```
+
+
+## Hook API
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### loading
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"95px"} />
+</div>
+
+- A boolean value which indicates if an API call is being made. It is true when an API call is made and false otherwise. It can be used to hide and show the `LoaderComponent`.
+
+
+<div style={{ position: "relative" }}>
+	#### productType
+	<Pills pills={[{ type: "type", label: "string" }]} left={"145px"} />
+</div>
+
+- A string value which indicates if the page is the search page ("SEARCH") or browse page ("BROWSE").
+
+
+<div style={{ position: "relative" }}>
+	#### products
+	<Pills pills={[{ type: "type", label: "array" }]} left={"110px"} />
+</div>
+
+- An array of products retrieved from the search results. Each product is an object containing various attributes relevant to the product (e.g., name, price, image).
+
+
+<div style={{ position: "relative" }}>
+	#### productType
+	<Pills pills={[{ type: "type", label: "string" }]} left={"140px"} />
+</div>
+
+- It can either be `SEARCH` or `CATEGORY`, based on which api call has been made (CATEGORY call or SEARCH call).
+
+
+<div style={{ position: "relative" }}>
+	#### start
+	<Pills pills={[{ type: "type", label: "number" }]} left={"70px"} />
+</div>
+
+- The index of the first product in the current set of products. This is useful for understanding the position of the product set within the total product range.
+
+
+<div style={{ position: "relative" }}>
+	#### numberOfProducts
+	<Pills pills={[{ type: "type", label: "number" }]} left={"200px"} />
+</div>
+
+- The total number of products available based on the current search query.
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<ProductsIcon />} title="Products" href="/docs/products" />
+</Cards>

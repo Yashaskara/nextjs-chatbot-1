@@ -1,0 +1,104 @@
+import { Cards, Card, Callout } from "nextra/components";
+import Pills from "../../components/Pills";
+
+import SearchIcon from "../../components/icons/SearchIcon";
+import SummaryIcon from "../../components/icons/SummaryIcon";
+
+# useQuery
+
+## Overview
+
+The useQuery hook in the SDK is designed to manage and access the current query state.
+It allows you to retrieve the current state and update it dynamically whenever necessary, providing an efficient way to handle query-related operations in real-time.
+
+
+## Usage
+
+```js copy
+import { useQuery } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useQuery** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useQuery } from "@unbxd-ui/react-search-hooks";
+
+const SearchComponent = () => {
+	const { query, setQuery } = useQuery({ delay: 300, forceReload: false });
+
+	const handleSearch = (event) => {
+		setQuery(event.target.value);
+	};
+
+	return (
+		<div>
+			<input type="text" value={query} onChange={handleSearch} placeholder="Search for products..." />
+		</div>
+	);
+};
+```
+
+
+## Hook API
+
+### Parameters
+
+<div style={{ position: "relative" }}>
+	#### delay
+	<Pills pills={[{ type: "type", label: "number" }]} left={"75px"} />
+</div>
+
+-   The time in milliseconds to wait before updating the search query after the user has stopped typing.
+    This helps to prevent unnecessary searches.
+	
+	
+<div style={{ position: "relative" }}>
+	#### forceReload
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"145px"} />
+</div>
+
+- Turn this boolean to `true` if you want the api call to trigger even when you hit the same query. If this is turned to `false`, then for the same query , multiple calls will not happen.
+- Default Value: `false`.
+
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### query
+	<Pills pills={[{ type: "type", label: "string" }]} left={"80px"} />
+</div>
+
+-   This value represents the current search query being used in the search. Default value of this is set to `*` if no other query has been provided.
+
+
+<div style={{ position: "relative" }}>
+	#### suggestedQuery
+	<Pills pills={[{ type: "type", label: "string" }]} left={"180px"} />
+</div>
+
+-   This value represents the corrected query in case the query entered by the user is not correct.
+
+
+<div style={{ position: "relative" }}>
+	#### setQuery
+	<Pills pills={[{ type: "type", label: "function" }]} left={"110px"} />
+</div>
+
+-   This function allows users to set a new search query by passing the desired query as a parameter. It updates the current search state, enabling real-time adjustments based on user input or interactions.
+
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<SearchIcon />} title="SearchBox" href="/docs/searchbox" />
+	<Card icon={<SummaryIcon />} title="Summary" href="/docs/summary" />
+</Cards>

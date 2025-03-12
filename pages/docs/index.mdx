@@ -1,0 +1,139 @@
+import { Cards, Card, Callout } from "nextra/components";
+import ArrowRightIcon from "../../components/icons/ArrowRightIcon";
+import Link from "next/link";
+
+# Introduction
+
+Welcome to the Netcore Unbxd React SDK! Whether you're building a client-side rendered (CSR) application, a server-side rendered (SSR) application using Next.js, or prefer a headless approach using only hooks, our SDK provides the tools you need to create a seamless and efficient shopping experience. Designed with flexibility and scalability in mind, the Unbxd React SDK empowers developers to create dynamic, high-performing e-commerce experiences tailored to their specific needs.
+
+## Overview
+
+The Unbxd React SDK is a comprehensive suite of React components, hooks, and utilities designed to integrate Unbxd's search, navigation, and merchandising capabilities into your e-commerce website. It offers three flexible packages to suit various development needs:
+
+- **`CSR` (Client-Side Rendering)**: Ideal for SPAs where rendering happens in the browser.
+- **`SSR` (Server-Side Rendering)**: Perfect for Next.js applications, offering better SEO and performance.
+- **`Hooks`**: A headless option providing maximum flexibility for UI and state management.
+
+<Callout>
+	<div>
+		<strong>Important:</strong>
+	</div>
+	<div>Mix and match Unbxd components with custom ones built using Unbxd hooks to suit your CSR or SSR application needs.</div>
+</Callout>
+
+<Cards>
+	<Card
+		title={
+			<>
+				Client Side Rendering
+				<ArrowRightIcon />
+			</>
+		}
+		href="/docs/getting-started/csr"
+		aria-label="Client Side Rendering documentation"
+	/>
+	<Card
+		title={
+			<>
+				Server Side Rendering
+				<ArrowRightIcon />
+			</>
+		}
+		href="/docs/getting-started/ssr"
+		aria-label="Server Side Rendering documentation"
+	/>
+	<Card
+		title={
+			<>
+				Hooks
+				<ArrowRightIcon />
+			</>
+		}
+		href="/docs/getting-started/customHooks"
+		aria-label="Hooks documentation"
+	/>
+</Cards>
+
+## Why Use React SDK?
+
+| **Feature**              | **React Search SDK**              | **JavaScript Search SDK** |
+| ------------------------ | --------------------------------- | ------------------------- |
+| **React Compatibility**  | High, designed for React          | Low, general-purpose      |
+| **Pre-Built Components** | Yes                               | No                        |
+| **State Management**     | Declarative, intuitive            | Imperative, more manual   |
+| **Automatic UI Updates** | Yes, leverages React's reactivity | Manual or custom          |
+| **SSR Support**          | Yes                               | No                        |
+
+If you still decide to use our JavaScript SDK, find the documentation <Link style={{ color: "blue" }} href="https://unbxd.github.io/search-JS-library/" rel="noopener noreferrer">here</Link>.
+
+## CSR vs SSR
+
+| **Feature**            | **Client-Side Rendering (CSR)**                                     | **Server-Side Rendering (SSR)**                               |
+| ---------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Rendering Location** | Browser (Client)                                                    | Server                                                        |
+| **Initial Load Time**  | Slower (JS must load before content displays)                       | Faster (HTML fully rendered on server)                        |
+| **SEO**                | Less optimal (content may not be immediately available to crawlers) | Better (content is pre-rendered on server)                    |
+| **Interactivity**      | Faster after initial load (SPA experience)                          | Slower for page transitions (hydration required)              |
+| **Caching**            | More challenging to implement (cache only static assets)            | Easier with server caching (entire pages can be cached)       |
+| **Use Cases**          | SPAs, high interactivity, real-time updates                         | SEO-focused sites, static pages, e-commerce with initial load |
+
+## Key Features
+
+Unbxd React SDK includes a robust set of features to streamline e-commerce development:
+
+- **Search and Navigation**: Build search bars, facets, and category navigation.
+- **Pagination and Sorting**: Implement pagination and sorting to enhance product discovery.
+- **Customizable Product Display**: Leverage hooks or components for tailored layouts.
+- **Faceted Search**: Allow users to filter products by attributes like color, size, or brand.
+- **Banners and Promotions**: Display dynamic, contextual banners and promotions.
+- **Breadcrumb Navigation**: Enable easy navigation through categories and filters.
+- **Autosuggest**: Provide real-time search suggestions as users type, improving search efficiency.
+- **SEO-Optimized URLs**: Create search-friendly URLs for better SEO.
+- **Multi-Device Compatibility**: Ensure consistent performance across desktops, tablets, and mobile devices.
+
+## What You Can Expect
+
+Our documentation offers:
+
+- **Interactive Demos**: See components in action with live demos.
+- **Code Samples**: Access detailed examples for a wide range of use cases.
+- **In-Depth Documentation**: Learn about every component, hook, and utility.
+
+Explore the documentation, try the examples, and build with confidence!
+
+## Conclusion
+
+The Unbxd React SDK empowers developers with tools for creating high-performance e-commerce websites. With live demos, thorough documentation, and code samples, it's designed for CSR, SSR, and headless implementations. Get started today and deliver exceptional shopping experiences!
+
+<Cards>
+	<Card
+		title={
+			<>
+				Client Side Rendering
+				<ArrowRightIcon />
+			</>
+		}
+		href="/docs/getting-started/csr"
+		aria-label="Client Side Rendering documentation"
+	/>
+	<Card
+		title={
+			<>
+				Server Side Rendering
+				<ArrowRightIcon />
+			</>
+		}
+		href="/docs/getting-started/ssr"
+		aria-label="Server Side Rendering documentation"
+	/>
+	<Card
+		title={
+			<>
+				Hooks
+				<ArrowRightIcon />
+			</>
+		}
+		href="/docs/getting-started/customHooks"
+		aria-label="Hooks documentation"
+	/>
+</Cards>

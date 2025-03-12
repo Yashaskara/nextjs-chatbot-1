@@ -1,0 +1,141 @@
+import { Carousel } from "@unbxd-ui/react-search-components";
+
+import Pills from "../../../components/Pills";
+import { Cards, Card } from "nextra/components";
+import ProductsIcon from "../../../components/icons/ProductsIcon";
+
+# Carousel
+
+## Overview
+
+The `Carousel` component is an essential tool for creating dynamic and engaging product displays on your e-commerce website. It allows you to showcase multiple images or items in a rotating slideshow, enhancing the visual appeal and user interaction on your platform.
+
+## Usage
+
+```js copy 
+// importing component
+import { Carousel } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/carousel.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/carousel.css")
+```
+
+## Live Demo
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 5px", display: "inline-flex" }}>
+		<Carousel 
+            visibleCount={2} 
+            list={[
+                "/react-search/carousel-cart-icon.png", 
+                "/react-search/carousel-shoe-icon.png", 
+                "/react-search/carousel-sofa-icon.png", 
+                "/react-search/carousel-fridge-icon.png"
+            ]} 
+        />
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+        // code used for above example
+		import { Carousel } from "@unbxd-ui/react-search-components";
+
+		<Carousel 
+            visibleCount={2} 
+            list={[
+                "https://imageUrl1.png", 
+                "https://imageUrl2.png", 
+                "https://imageUrl3.png", 
+                "https://imageUrl4.png"
+            ]} 
+        />
+		```
+	</div>
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### visibleCount
+	<Pills pills={[{ type: "type", label: "number" }]} left={"165px"} />
+</div>
+
+- The number of images that must be shown at a time. 
+- Default Value: `1`.
+
+<div style={{ position: "relative" }}>
+	### showArrows
+	<Pills pills={[{ type: "type", label: "boolean" }]} left={"165px"} />
+</div>
+
+- A boolean value which indicates if the next and previous arrows must be shown or not.
+- Default Value: `true`.
+
+<div style={{ position: "relative" }}>
+	### list
+	<Pills pills={[{ type: "type", label: "string array" }]} left={"60px"} />
+</div>
+
+- An array of URLs of the images that must be shown.
+
+<div style={{ position: "relative" }}>
+	### fallbackUrl
+	<Pills pills={[{ type: "type", label: "string" }]} left={"145px"} />
+</div>
+
+- The URL of the image that must be used for an image in case there is an error in displaying the original image.
+
+<div style={{ position: "relative" }}>
+	### onClick
+	<Pills pills={[{ type: "type", label: "function" }]} left={"110px"} />
+</div>
+
+- A function that is invoked when a carousel image is clicked.
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "slider-container", // used for the wrapper
+	arrow: "arrow", // used for the next/prev arrows
+	leftArrow: "left-arrow", // used for the prev arrow
+	rightArrow: "right-arrow", // used for the next arrow
+	imageWrapper: "carousel-images", // used for the wrapper around the carousel images
+	thumbnail: "thumbnail", // used for each image thumbnail
+	activeThumbnail: "active" // used for the active image thumbnail
+}}
+```
+
+## Related Components
+
+<Cards>
+	<Card icon={<ProductsIcon />} title="Products" href="/docs/products" />
+</Cards>

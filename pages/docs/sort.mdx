@@ -1,0 +1,47 @@
+import { Card, Cards } from "nextra/components";
+
+import ButtonIcon from "../../components/icons/ButtonIcon";
+import DropdownIcon from "../../components/icons/DropdownIcon";
+import RadioButtonIcon from "../../components/icons/RadioButtonIcon";
+import HookIcon from "../../components/icons/HookIcon";
+
+# Sorting
+
+## Overview
+
+“Sort” functionality in an e-commerce page allows users to rearrange the products displayed on a search results or product listing page in a specific order.
+
+This functionality can help users quickly find the products that are most relevant or interesting to them, based on their specific needs and preferences. It allows users to quickly identify products in a particular price range, or newly added items, making it more convenient for them to find what they are looking for.
+
+It is also common to find that e-commerce websites will have a default sort order when a user visits a category or search results, but also provides the user with a way to change and adjust the sort order as they wish.
+
+
+## Common Sorting Options
+
+When implementing sorting for an e-commerce website, the following are the most commonly used options:
+
+- **Sort by relevance**: This is the default sorting option. It orders the products based on how well they match the search criteria or the filter settings.
+- **Sort by price**: This allows users to sort products by price, in either ascending or descending order.
+- **Sort by popularity**: This orders the products based on their popularity, like number of sales, views, or ratings.
+- **Sort by newness**: This orders the products based on their recency, usually the newest products are listed first.
+- **Sort by Brand**: This allow the users to sort products by brand name.
+
+
+## Related Hook
+
+<div style={{ marginTop: "1.5rem", fontSize: "20px", fontWeight: "600" }}>useSorting</div>
+
+To use the Unbxd React Search SDK without the pre-built SortButtons component, add the functionality to your custom component using the useSorting hook. Refer to the documentation for more details.
+
+<Cards>
+	<Card icon={<HookIcon />} title="useSorting" href="/docs/useSorting" />
+</Cards>
+
+
+## Related Components
+
+<Cards>
+	<Card icon={<DropdownIcon />} title="Sort Dropdown" href="/docs/sort/dropdown" />
+	<Card icon={<ButtonIcon />} title="Sort Buttons" href="/docs/sort/buttons" />
+	<Card icon={<RadioButtonIcon />} title="Sort Radio Butons" href="/docs/sort/radio" />
+</Cards>

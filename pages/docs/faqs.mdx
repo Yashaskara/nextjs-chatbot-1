@@ -1,0 +1,31 @@
+import Link from "next/link";
+
+# Troubleshooting and FAQs
+
+### 1. I have a persisting bug and cannot find the solution using this documentation. What should I do?
+
+First, upgrade the React Search SDK to the latest version (view change log <Link href={"/docs/changelog"}>**here**</Link>) and check if the bug still exists. Each release includes fixes for various issues, so updating might resolve the problem.
+
+---
+
+### 2. I imported a component, but the CSS is missing, causing the page to look broken. How do I fix this?
+
+When importing a component, you must also import its corresponding CSS file. For instance, if you are using the **Products** component, include its CSS as follows:
+
+```js
+import "@unbxd-ui/react-search-components/styles/products.css";
+```
+
+If the styles are still not applied, try using this alternative approach:
+
+```js
+require.resolve("@unbxd-ui/react-search-components/styles/products.css");
+```
+
+Refer to the "Usage" section of the component documentation for detailed instructions on importing components and their styles.
+
+---
+
+### 3. Can I use multiple instances of search wrappers on the same page?
+
+Yes, you can use multiple search wrappers on a single page. Each wrapper maintains its own state, logic, and functionality. Components in one wrapper will not interfere with those in another. But it is recommended to use only one wrapper in a page.

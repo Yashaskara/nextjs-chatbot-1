@@ -1,0 +1,85 @@
+import { Cards, Card, Callout } from "nextra/components";
+
+import Pills from "../../components/Pills";
+import DropdownIcon from "../../components/icons/DropdownIcon";
+
+
+# usePageSize
+
+## Overview
+
+The `usePageSize` hook provides a way to manage and update the page size state in your application using the Unbxd ReactJS SDK.
+
+## Usage
+
+```js copy
+import { usePageSize } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **usePageSize** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js {1, 4}
+import { usePageSize } from "@unbxd-ui/react-search-hooks";
+
+const MyComponent = () => {
+	const { pageSize, setPageSize } = usePageSize([10, 20, 30]);
+	
+	const handlePageSizeChange = (pageSizeValue) => {
+		setPageSize(pageSizeValue);
+	};
+
+	const renderPageSizeComponent = () => {
+		return (
+			<div>
+				<select
+					id="pageSize"
+					onChange={(event) => {
+						handlePageSizeChange(event.target.value);
+					}}>
+					<option value={10}>10</option>
+					<option value={20}>20</option>
+					<option value={30}>30</option>
+				</select>
+			</div>
+		);
+	};
+	
+	return renderPageSizeComponent();
+};
+```
+
+## Hook API
+
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### pageSize
+	<Pills pills={[{ type: "type", label: "number" }]} left={"110px"} />
+</div>
+
+-   The current page size value.
+-   Default value - `12`.
+
+
+<div style={{ position: "relative" }}>
+	#### setPageSize
+	<Pills pills={[{ type: "type", label: "function" }]} left={"140px"} />
+</div>
+
+-   The function to set the new pagesize.
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<DropdownIcon />} title="PageSize" href="/docs/pageSize" />
+</Cards>

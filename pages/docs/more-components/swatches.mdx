@@ -1,0 +1,107 @@
+import { Swatches } from "@unbxd-ui/react-search-components";
+
+import { Cards, Card } from "nextra/components";
+import Pills from "../../../components/Pills";
+import ProductsIcon from "../../../components/icons/ProductsIcon";
+
+# Swatches
+
+## Overview
+
+The `Swatches` component is a specialized tool designed to display and select color variants for products on your e-commerce website. It provides a visually engaging way for customers to explore different color options, directly impacting their purchasing decisions.
+
+## Usage
+
+```js copy
+// importing component
+import { Swatches } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/swatches.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/swatches.css")
+```
+
+## Live Demo
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 5px" }}>
+		<Swatches list={["red", "green", "white", "black", "yellow"]} />
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+        // code used for above example
+		import { Swatches } from "@unbxd-ui/react-search-components";
+
+		<Swatches list={[ "red", "green", "white", "black", "yellow" ]} />
+		```
+	</div>
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### list
+	<Pills pills={[{ type: "type", label: "string array" }]} left={"60px"} />
+</div>
+
+- An array of strings where each string is used as the background colour of the respective swatch.
+
+<div style={{ position: "relative" }}>
+	### onClick
+	<Pills pills={[{ type: "type", label: "function" }]} left={"110px"} />
+</div>
+
+- The function that is invoked when a swatch button is clicked.
+
+
+<div style={{ position: "relative" }}>
+	### label
+	<Pills pills={[{ type: "type", label: "string" }]} left={"85px"} />
+</div>
+
+- The label for the Swatches component.
+
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+- This prop will be used to style the component. 
+- The value must use a defined structure (the structure can be seen in the following example).
+- The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "swatch-container", // used for the swatch wrapper
+    swatch: "swatch", // used for each swatch button
+    activeSwatch: "active" // used for the active swatch button
+}}
+```
+
+## Related Components
+
+<Cards>
+	<Card icon={<ProductsIcon />} title="Products" href="/docs/products" />
+</Cards>

@@ -1,0 +1,5 @@
+{
+    "csr": "Client Side Rendering",
+    "ssr": "Server Side Rendering",
+    "customHooks": "Custom Hooks"
+}

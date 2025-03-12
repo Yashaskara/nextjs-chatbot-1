@@ -1,0 +1,156 @@
+import Pills from "../../../components/Pills";
+import { Cards, Card, Callout } from "nextra/components";
+import ProductsIcon from "../../../components/icons/ProductsIcon";
+import { Accordion, AccordionActivator, AccordionBody } from "@unbxd-ui/react-search-components";
+
+# Accordion
+
+## Overview
+
+The `Accordion` component is a collapsible container designed to hold any content passed as `children`. 
+Users can expand or collapse the accordion to show or hide the enclosed content. 
+Additionally, the Accordion component exports two other sub-components: `AccordionActivator` and `AccordionBody`.
+
+## Usage
+
+```js copy
+// importing component
+import { Accordion, AccordionActivator, AccordionBody } from "@unbxd-ui/react-search-components";
+
+// import the style for the component
+import "@unbxd-ui/react-search-components/styles/accordion.css";
+```
+
+If the styles import does not work, use the following code to import it:
+
+```js copy
+require.resolve("@unbxd-ui/react-search-components/styles/accordion.css")
+```
+
+## Sub-components
+
+<div style={{ position: "relative" }}>
+	### AccordionActivator
+</div>
+
+The `AccordionActivator` is nested within the Accordion component as a child element. 
+It is designed to contain an interactive element, such as a button or clickable area, that triggers the expansion or collapse of the accordion's content. 
+
+
+<div style={{ position: "relative" }}>
+	### AccordionBody
+</div>
+
+The `AccordionBody` is placed as the second child within the Accordion component. It serves as the container for the main content of the accordion, allowing you to insert any elements that should be displayed when the accordion is expanded. 
+
+
+## Live Demo
+
+<div
+	className="code-example"
+	style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		marginTop: "20px",
+		border: "1px solid #ededed",
+		borderRadius: "10px",
+		overflow: "hidden",
+	}}>
+	<div style={{ width: "fit-content", padding: "20px 5px", display: "inline-flex" }}>
+		<Accordion defaultOpen={true} isCollapsible={true}>
+			<AccordionActivator>
+				<button style={{borderBottom: "1px solid #ccc", padding: "5px", width: "250px" }}>Furniture</button>
+			</AccordionActivator>
+			
+			<AccordionBody>
+				<ul style={{width: "250px", padding: "10px 15px"}}>
+					<li>Table</li>
+					<li>Chairs</li>
+					<li>Dining</li>
+					<li>Bedroom</li>
+				</ul>
+			</AccordionBody>
+		</Accordion>
+	</div>
+	<div style={{ width: "100%", borderTop: "1px solid #ededed" }}>
+		```js copy
+        // code used for above example
+		import { Accordion, AccordionActivator, AccordionBody } from "@unbxd-ui/react-search-components";
+		
+		<Accordion defaultOpen={true} isCollapsible={true} style={{wrapper: "", header: "", body: ""}}>
+			<AccordionActivator>
+				<button>Furniture</button>
+			</AccordionActivator>
+			
+			<AccordionBody>
+				<ul>
+					<li>Table</li>
+					<li>Chairs</li>
+					<li>Dining</li>
+					<li>Bedroom</li>
+				</ul>
+			</AccordionBody>
+		</Accordion>
+		```
+	</div>
+</div>
+
+## Props
+
+<div style={{ position: "relative" }}>
+	### defaultOpen
+	<Pills pills={[
+		{ type: "optional", label: "optional" },
+		{ type: "type", label: "boolean" }
+		]
+	} left={"165px"} />
+</div>
+
+The `defaultOpen` is a property that controls whether the accordion is initially expanded or collapsed when rendered. 
+If set to `true`, the accordion will be in the open state by default; if set to `false`, it will remain collapsed by default.
+By default the value is set to `true`.
+
+<div style={{ position: "relative" }}>
+	### isCollapsible
+	<Pills pills={[
+		{ type: "optional", label: "optional" },
+		{ type: "type", label: "boolean" }
+		]} left={"165px"} />
+</div>
+
+The `isCollapsible` is a prop that controls whether the accordion can be expanded at all or not. When set to false, the accordion remains permanently open and cannot be collapsed at all.When isCollapsible is set to true, users can freely collapse and expand the accordion as needed, providing flexibility in managing content visibility.
+By default the value is set to `true`.
+
+<Callout type="info">
+	<div>**Note**:</div>
+	<div>`defaultOpen` and `isCollapsible` works hand in hand, i.e. only if isCollapsible is `true`, `isDefaultOpen` would work.</div>
+</Callout>
+
+<div style={{ position: "relative" }}>
+	### styles
+	<Pills
+		pills={[
+			{ type: "optional", label: "optional" },
+			{ type: "type", label: "object" },
+		]}
+		left={"95px"}
+	/>
+</div>
+
+This prop will be used to style the component. The value must use a defined structure (the structure can be seen in the following example).
+The keys in the structure must be the same while the values can changed as per the user's choice.
+
+```css copy
+styles={{
+	wrapper: "",
+	header: "",
+	body: ""
+}}
+```
+
+## Related Components
+
+<Cards>
+	<Card icon={<ProductsIcon />} title="Dropdown" href="/docs/more-components/dropdown" />
+</Cards>

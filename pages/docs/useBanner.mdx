@@ -1,0 +1,80 @@
+import { Cards, Card, Callout } from "nextra/components";
+import Pills from "../../components/Pills";
+import BannerIcon from "../../components/icons/BannerIcon";
+
+# useBanner
+
+## Overview
+
+The useBanner hook is designed to manage and retrieve banner advertisements for an e-commerce platform based on the current search query. These banners, which can be images or HTML content, are configured through the Unbxd console and displayed to the user alongside search results or other relevant sections of the site.
+
+## Usage
+
+```js copy
+import { useBanner } from "@unbxd-ui/react-search-hooks";
+```
+
+<Callout type="warning">
+	<div>**Note:**</div>
+	<div>
+		The **useBanner** hook must be used within the wrapper (in CSR, SSR and Custom Hooks approaches) to ensure that the respective component(s) and the search functionality work properly.
+	</div>
+</Callout>
+
+
+## Code Example
+
+```js copy {1, 4}
+import { useBanner } from "@unbxd-ui/react-search-hooks";
+
+const BannerComponent = () => {
+    const { banners, onBannerClick } = useBanner();
+
+    return (
+        <div className="banners-container">
+            {banners.map((banner, index) => (
+                <div key={index} className="banner-item" onClick={onBannerClick}>
+                    {banner.imageUrl && (
+                        <a href={banner.landingUrl} target="_blank" rel="noopener noreferrer">
+                            <img src={banner.imageUrl} alt="Banner" />
+                        </a>
+                    )}
+                    {banner.bannerHtml && (
+                        <div dangerouslySetInnerHTML={{ __html: banner.bannerHtml }} />
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+};
+```
+
+## Hook API
+
+### Return Values
+
+<div style={{ position: "relative" }}>
+	#### banners
+	<Pills pills={[{ type: "type", label: "string array" }]} left={"100px"} />
+</div>
+
+- An array of banners retrieved based on the current search query. Each banner can be an image or HTML content.
+- Each banner in the banners array has the following structure:
+	- `imageUrl` - The URL of the banner image. If the banner is an image, this field will contain the image URL. Otherwise, it will be null.
+	- `landingUrl` - The URL to which the user is redirected when the banner is clicked. This is optional and will be null if not provided.
+	- `bannerHtml` - The HTML content of the banner. If the banner is HTML-based, this field will contain the HTML string. Otherwise, it will be null.
+
+
+<div style={{ position: "relative" }}>
+	#### onBannerClick
+	<Pills pills={[{ type: "type", label: "function" }]} left={"160px"} />
+</div>
+
+- A function that can be called when a banner has been clicked. It in turn calls the `onEvent` function wherein the type is `"BANNER_CLICKED"`.
+
+
+## Use Cases
+
+<Cards>
+	<Card icon={<BannerIcon />} title="Banner" href="/docs/banner" />
+</Cards>
