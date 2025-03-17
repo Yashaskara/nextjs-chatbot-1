@@ -91,7 +91,7 @@ export default function DocChatbot() {
             <div
               key={conv.id}
               onClick={() => setCurrentConversationId(conv.id)}
-              className={currentConversationId === conv.id ? styles.active : ''}
+              className={`${styles.conversationItem} ${currentConversationId === conv.id ? styles.active : ''}`}
             >
               {conv.subject}
             </div>
